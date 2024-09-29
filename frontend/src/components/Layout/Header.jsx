@@ -17,6 +17,9 @@ import Cart from "../cart/Cart";
 import Wishlist from "../Wishlist/Wishlist";
 import { RxCross1 } from "react-icons/rx";
 import Logo from "../myComponents/Logo";
+import { IoFlashOffSharp } from "react-icons/io5";
+import { BsShop } from "react-icons/bs";
+
 
 
 const Header = ({ activeHeading }) => {
@@ -98,9 +101,9 @@ const Header = ({ activeHeading }) => {
 
           <div className={`${styles.button}`}>
             <Link to={`${isSeller ? "/dashboard" : "/shop-create"}`}>
-              <h1 className=" flex items-center">
-                {isSeller ? "Go Dashboard" : "Become Seller"}{" "}
-                <IoIosArrowForward className="ml-1" />
+              <h1 className=" flex items-center space-x-2 ">
+                {isSeller ? "Go Dashboard" : "Become Vendor"}{" "}
+                <BsShop className="ml-1" />
               </h1>
             </Link>
           </div>
@@ -108,7 +111,7 @@ const Header = ({ activeHeading }) => {
       </div>
       <div
         className={`${active === true ? "shadow-sm fixed top-0 left-0 z-10" : null
-          } transition hidden 800px:flex items-center justify-between w-full bg-amber-400 h-[70px]`}
+          } transition hidden 800px:flex items-center justify-between w-full bg-[#FF7E00] h-[70px]`}
       >
         <div
           className={`${styles.section} relative ${styles.noramlFlex} justify-between`}
@@ -292,7 +295,7 @@ const Header = ({ activeHeading }) => {
               <div className={`${styles.button} ml-4 !rounded-[4px]`}>
                 <Link to="/shop-create">
                   <h1 className="text-[#fff] flex items-center">
-                    Become Seller <IoIosArrowForward className="ml-1" />
+                    Register Vendor   <BsShop className="ml-1" />
                   </h1>
                 </Link>
               </div>

@@ -7,6 +7,8 @@ function Logo({ to }) {
       src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Nintendo_eShop_Switch_logo.svg/2560px-Nintendo_eShop_Switch_logo.svg.png"
       alt=""
     />
+
+    {/* <div className="flex -space-y-2 flex-col text-xl font-bold text-orange-600"><h2>GROUP 3  </h2><h2>eShope</h2> </div> */}
   </Link>;
 }
 
