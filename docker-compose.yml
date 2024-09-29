@@ -53,18 +53,17 @@ services:
     depends_on:
       - mongo
   # Client service
-  # client:
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile
-  #   container_name: frontend
-  #   environment:
-  #     NODE_ENV: PRODUCTION
-  #     BACKEND_URL: http://backend:8000
-
-  #   ports:
-  #     - "85:80"
-  #   depends_on:
-  #     - backend
+  client:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    environment:
+      NODE_ENV: PRODUCTION
+      BACKEND_URL: http://backend.groupthree.shop
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
 
     # Volumes define
