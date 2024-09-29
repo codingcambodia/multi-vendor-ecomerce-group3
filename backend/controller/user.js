@@ -12,8 +12,6 @@ const { isAuthenticated, isAdmin } = require("../middleware/auth");
 // create user
 router.post("/create-user", async (req, res, next) => {
   try {
-    console.log("Thanks");
-
     const { name, email, password, avatar } = req.body;
     const userEmail = await User.findOne({ email });
 
@@ -24,8 +22,6 @@ router.post("/create-user", async (req, res, next) => {
     const myCloud = await cloudinary.v2.uploader.upload(avatar, {
       folder: "avatars",
     });
-    console.log("kakak");
-    
 
     const user = {
       name: name,
@@ -72,7 +68,6 @@ router.post(
   catchAsyncErrors(async (req, res, next) => {
     try {
       const { activation_token } = req.body;
-
       const newUser = jwt.verify(
         activation_token,
         process.env.ACTIVATION_SECRET

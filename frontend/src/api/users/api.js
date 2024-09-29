@@ -22,7 +22,9 @@ export const loginUser = async (data) => {
   await axiosInstance.post("login-user", data);
 };
 export const activateUser = async (activation_token) => {
-  await axiosInstance.post("activation", activation_token);
+  await axiosInstance.post("activation", {
+    activation_token: activation_token,
+  });
 };
 // // TODO:
 // export const deleteBulkAccount = async (ids: string[]) => {

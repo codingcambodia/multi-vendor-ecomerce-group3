@@ -11,8 +11,13 @@ const ActivationPage = () => {
   const { activation_token } = useParams();
   const [error, setError] = useState(false);
 
+
+  console.log(activation_token);
+
   useEffect(() => {
     if (activation_token) {
+    
+
       activateUser(activation_token, {
         onSuccess: () => {
           setError(false)
