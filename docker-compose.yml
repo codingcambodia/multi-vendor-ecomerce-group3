@@ -17,8 +17,8 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
-    ports:
-      - "27017:27017"
+    # ports:
+    #   - "27017:27017"
     volumes:
       - ./../mydata:/data/db
   backend:
@@ -26,8 +26,8 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: backend
-    ports:
-      - "8000:8000"
+    # ports:
+    #   - "8000:8000"
     env_file: ./.env
     environment:
       NODE_ENV: $NODE_ENV
@@ -61,8 +61,8 @@ services:
     environment:
       NODE_ENV: PRODUCTION
       BACKEND_URL: http://backend.groupthree.shop
-    ports:
-      - "82:80"
+    # ports:
+    #   - "82:80"
     depends_on:
       - backend
 
