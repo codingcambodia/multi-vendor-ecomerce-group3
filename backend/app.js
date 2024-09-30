@@ -5,7 +5,13 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-app.use(cors());
+app.use(
+  cors({
+    origin: true,
+    methods: ["POST", "GET", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 app.use(cookieParser());
