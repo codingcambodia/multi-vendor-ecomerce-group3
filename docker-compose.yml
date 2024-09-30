@@ -60,7 +60,7 @@ services:
     container_name: frontend
     environment:
       NODE_ENV: PRODUCTION
-      BACKEND_URL: http://backend.groupthree.shop
+      BACKEND_URL: https://backend.groupthree.shop
     # ports:
     #   - "82:80"
     depends_on:
