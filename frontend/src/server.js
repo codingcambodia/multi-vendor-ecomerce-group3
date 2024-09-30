@@ -1,1 +1,1 @@
-export const server = "https://backend.groupthree.shop";
+export const server = "https://backend.groupthree.shop/api/v2";
