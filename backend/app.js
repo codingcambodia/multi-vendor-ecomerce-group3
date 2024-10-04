@@ -7,7 +7,7 @@ const cors = require("cors");
 
 app.use(
   cors({
-    origin: "*",
+    origin: "https://groupthree.shop",
     methods: ["POST", "GET", "PUT", "DELETE"],
     credentials: true,
   })
