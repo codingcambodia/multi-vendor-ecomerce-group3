@@ -57,6 +57,8 @@ router.post("/create-user", async (req, res, next) => {
       return next(new ErrorHandler(error.message, 500));
     }
   } catch (error) {
+    console.log(error);
+    
     return next(new ErrorHandler(error.message, 400));
   }
 });
