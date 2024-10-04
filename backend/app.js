@@ -16,6 +16,8 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 app.use("/test", (req, res) => {
+  console.log("testing");
+
   res.send("Hello world!");
 });
 
