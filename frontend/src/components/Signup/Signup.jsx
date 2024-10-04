@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { RxAvatar } from "react-icons/rx";
 import BeatLoader from "react-spinners/BeatLoader";
 
-import { useCreateUser } from "../../api/users/user-create-user";
+import { useCreateUser } from "../../api/users/use-create-user";
 
 const Singup = () => {
   const { isPending, mutate: createUser } = useCreateUser();
