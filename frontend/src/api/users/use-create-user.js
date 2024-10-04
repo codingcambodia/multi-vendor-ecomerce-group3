@@ -18,7 +18,7 @@ export function useCreateUser() {
       toast.error("Create User Failed!");
     },
     onSuccess: () => {
-      toast.success("Create Student Success!");
+      toast.success("Create User Success!");
     },
     onSettled: async (_, error) => {
       if (error) {

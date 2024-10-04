@@ -11,8 +11,6 @@ const { isAuthenticated, isAdmin } = require("../middleware/auth");
 
 // create user
 router.post("/create-user", async (req, res, next) => {
-  console.log("testing");
-
   try {
     const { name, email, password, avatar } = req.body;
     const userEmail = await User.findOne({ email });
@@ -34,7 +32,6 @@ router.post("/create-user", async (req, res, next) => {
         url: myCloud.secure_url,
       },
     };
-    console.log(user, "user");
 
     const activationToken = createActivationToken(user);
     console.log(activationToken, "token");
@@ -58,7 +55,7 @@ router.post("/create-user", async (req, res, next) => {
     }
   } catch (error) {
     console.log(error);
-    
+
     return next(new ErrorHandler(error.message, 400));
   }
 });

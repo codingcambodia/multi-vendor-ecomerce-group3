@@ -63,8 +63,8 @@ services:
       BACKEND_URL: https://backend.groupthree.shop
     # ports:
     #   - "82:80"
-    # depends_on:
-    #   - backend
+    depends_on:
+      - backend
 
     # Volumes define
 
