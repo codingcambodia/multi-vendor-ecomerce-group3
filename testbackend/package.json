@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev":"node index.js"
+    "dev": "node index.js"
   },
   "author": "vannakvy",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.21.0"
+    "express": "^4.21.0",
+    "testbackend": "file:"
   }
 }
