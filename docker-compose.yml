@@ -26,8 +26,8 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: backend
-    ports:
-      - "8001:8000"
+    # ports:
+    #   - "8001:8000"
     env_file: ./.env
     environment:
       NODE_ENV: $NODE_ENV
@@ -62,9 +62,18 @@ services:
       NODE_ENV: PRODUCTION
       BACKEND_URL: https://backend.groupthree.shop
     # ports:
-    #   - "82:80"
+    #   - "81:80"
     depends_on:
       - backend
+  socket:
+    build:
+      context: ./socket
+      dockerfile: Dockerfile
+    container_name: socket
+    environment:
+      NODE_ENV: PRODUCTION
+    # ports:
+    #   - "4000:4000"
 
     # Volumes define
 

@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Open the port for the express server
-EXPOSE 5000
+EXPOSE 4000
 
 # Run express rum in the foreground
 CMD ["npm", "start"]
