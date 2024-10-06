@@ -260,7 +260,7 @@ router.put(
     }
   })
 );
-is
+
 // all sellers --- for admin
 router.get(
   "/admin-all-sellers",
@@ -303,7 +303,8 @@ router.delete(
         message: "Seller deleted successfully!",
       });
     } catch (error) {
-      return next(new ErrorHandler(error.message, 500));PUT
+      return next(new ErrorHandler(error.message, 500));
+      PUT;
     }
   })
 );
@@ -341,7 +342,8 @@ router.delete(
       }
       seller.withdrawMethod = null;
 
-      await seller.save();D
+      await seller.save();
+      D;
 
       res.status(201).json({
         success: true,
