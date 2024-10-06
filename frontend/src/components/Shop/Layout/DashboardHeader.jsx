@@ -4,7 +4,7 @@ import { MdOutlineLocalOffer } from "react-icons/md";
 import { FiPackage, FiShoppingBag } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { BiMessageSquareDetail } from "react-icons/bi";
+import { BiMessage, BiMessageSquareDetail } from "react-icons/bi";
 import Logo from "../../myComponents/Logo";
 
 const DashboardHeader = () => {
@@ -41,7 +41,7 @@ const DashboardHeader = () => {
             <FiPackage color="#555" size={25} className=" cursor-pointer" />
           </Link>
           <Link to="/dashboard-messages" className="800px:block hidden">
-            <BiMessageSquareDetail
+            <BiMessage
               color="#555"
               size={25}
               className=" cursor-pointer"
