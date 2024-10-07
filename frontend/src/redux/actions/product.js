@@ -30,13 +30,15 @@ export const createProduct =
         discountPrice,
         stock,
         shopId,
-        images,
+        images
       );
       dispatch({
         type: "productCreateSuccess",
         payload: data.product,
       });
     } catch (error) {
+      console.log(error.response);
+
       dispatch({
         type: "productCreateFail",
         payload: error.response.data.message,

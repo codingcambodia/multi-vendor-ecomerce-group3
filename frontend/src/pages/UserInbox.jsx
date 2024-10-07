@@ -209,7 +209,7 @@ const UserInbox = () => {
   }, [messages]);
 
   return (
-    <div className="w-full">
+    <div className="w-full ">
       {!open && (
         <>
           <Header />

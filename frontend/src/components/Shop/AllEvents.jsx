@@ -1,6 +1,6 @@
-import { Button } from "@material-ui/core";
+import { Button, Drawer } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -8,11 +8,13 @@ import { deleteEvent, getAllEventsShop } from "../../redux/actions/event";
 import { getAllProductsShop } from "../../redux/actions/product";
 import { deleteProduct } from "../../redux/actions/product";
 import Loader from "../Layout/Loader";
+import CreateEvent from "./CreateEvent";
+import styles from "../../styles/styles";
 
 const AllEvents = () => {
   const { events, isLoading } = useSelector((state) => state.events);
   const { seller } = useSelector((state) => state.seller);
-
+  const [openDrawer, setOpenDrawer] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -85,7 +87,7 @@ const AllEvents = () => {
         return (
           <>
             <Button
-            onClick={() => handleDelete(params.id)}
+              onClick={() => handleDelete(params.id)}
             >
               <AiOutlineDelete size={20} />
             </Button>
@@ -98,7 +100,7 @@ const AllEvents = () => {
   const row = [];
 
   events &&
-  events.forEach((item) => {
+    events.forEach((item) => {
       row.push({
         id: item._id,
         name: item.name,
@@ -107,13 +109,22 @@ const AllEvents = () => {
         sold: item.sold_out,
       });
     });
-
+    const handleOpenDrawer = () => {
+      setOpenDrawer(true)
+    }
+    const handleCloseDrawer = () => {
+      setOpenDrawer(false)
+    }
   return (
     <>
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="w-full mx-8 pt-1 mt-10 bg-white">
+        <div className="w-full mx-4 mt-8 bg-white p-8 pt-4">
+        <div className="flex py-8 justify-between items-center">
+          <h2 className="text-xl font-semibold">Event List</h2>
+          <button onClick={handleOpenDrawer} className={styles.button}>Create new</button>
+        </div>
           <DataGrid
             rows={row}
             columns={columns}
@@ -123,6 +134,12 @@ const AllEvents = () => {
           />
         </div>
       )}
+
+      <Drawer anchor="right" open={openDrawer} onClose={handleCloseDrawer}>
+        <div className="w-[560px] p-8">
+          <CreateEvent />
+        </div>
+      </Drawer>
     </>
   );
 };

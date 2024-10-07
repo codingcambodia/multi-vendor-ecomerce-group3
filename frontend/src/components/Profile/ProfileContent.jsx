@@ -152,7 +152,7 @@ const ProfileContent = ({ active }) => {
                 </div>
               </div>
               <input
-                className={`w-[250px] h-[40px] border border-[#3a24db] text-center text-[#3a24db] rounded-[3px] mt-8 cursor-pointer`}
+                className={`w-[250px] h-[40px] border bg-[#16A34A] text-white  text-center rounded-[3px] mt-8 cursor-pointer`}
                 required
                 value="Update"
                 type="submit"
@@ -273,7 +273,7 @@ const AllOrders = () => {
     });
 
   return (
-    <div className="pl-8 pt-1">
+    <div className="p-8 bg-white shadow-md rounded-lg">
       <DataGrid
         rows={row}
         columns={columns}
@@ -361,7 +361,7 @@ const AllRefundOrders = () => {
     });
 
   return (
-    <div className="pl-8 pt-1">
+    <div className="p-8 bg-white shadow-md rounded-lg">
       <DataGrid
         rows={row}
         columns={columns}
@@ -446,7 +446,7 @@ const TrackOrder = () => {
     });
 
   return (
-    <div className="pl-8 pt-1">
+    <div className="p-8 bg-white shadow-md rounded-lg">
       <DataGrid
         rows={row}
         columns={columns}
@@ -483,7 +483,7 @@ const ChangePassword = () => {
       });
   };
   return (
-    <div className="w-full px-5">
+    <div className="w-full p-8 bg-white shadow-md rounded-lg">
       <h1 className="block text-[25px] text-center font-[600] text-[#000000ba] pb-2">
         Change Password
       </h1>
@@ -590,10 +590,10 @@ const Address = () => {
   };
 
   return (
-    <div className="w-full px-5">
+    <div className="w-full p-8 bg-white shadow-md rounded-lg">
       {open && (
-        <div className="fixed w-full h-screen bg-[#0000004b] top-0 left-0 flex items-center justify-center ">
-          <div className="w-[35%] h-[80vh] bg-white rounded shadow relative overflow-y-scroll">
+        <div className="fixed w-full h-screen bg-[#0000004b] top-0 left-0 flex items-center justify-center">
+          <div className="w-[40%] h-[80vh] bg-white rounded shadow relative overflow-y-scroll p-10">
             <div className="w-full flex justify-end p-3">
               <RxCross1
                 size={30}

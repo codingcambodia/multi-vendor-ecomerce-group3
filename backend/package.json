@@ -7,7 +7,10 @@
     "node": "18.x"
   },
   "scripts": {
-    "dev": "nodemon server.js",
+    "backend": "nodemon server.js",
+    "frontend": "yarn start --prefix ../frontend",
+    "socket": "npm start --prefix ../socket",
+    "dev": "concurrently \"npm run backend\" \"yarn start frontend\" \"npm run socket\"",
     "start": "node server.js"
   },
   "author": "group three",

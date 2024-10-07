@@ -16,8 +16,8 @@ const DashboardHero = () => {
   const { products } = useSelector((state) => state.products);
 
   useEffect(() => {
-     dispatch(getAllOrdersOfShop(seller._id));
-     dispatch(getAllProductsShop(seller._id));
+    dispatch(getAllOrdersOfShop(seller._id));
+    dispatch(getAllProductsShop(seller._id));
   }, [dispatch]);
 
   const availableBalance = seller?.availableBalance.toFixed(2);
@@ -77,11 +77,11 @@ const DashboardHero = () => {
 
   orders && orders.forEach((item) => {
     row.push({
-        id: item._id,
-        itemsQty: item.cart.reduce((acc, item) => acc + item.qty, 0),
-        total: "US$ " + item.totalPrice,
-        status: item.status,
-      });
+      id: item._id,
+      itemsQty: item.cart.reduce((acc, item) => acc + item.qty, 0),
+      total: "US$ " + item.totalPrice,
+      status: item.status,
+    });
   });
   return (
     <div className="w-full p-8">
@@ -144,13 +144,13 @@ const DashboardHero = () => {
       <br />
       <h3 className="text-[22px] font-Poppins pb-2">Latest Orders</h3>
       <div className="w-full min-h-[45vh] bg-white rounded">
-      <DataGrid
-        rows={row}
-        columns={columns}
-        pageSize={10}
-        disableSelectionOnClick
-        autoHeight
-      />
+        <DataGrid
+          rows={row}
+          columns={columns}
+          pageSize={10}
+          disableSelectionOnClick
+          autoHeight
+        />
       </div>
     </div>
   );
