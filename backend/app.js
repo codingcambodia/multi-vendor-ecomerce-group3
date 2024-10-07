@@ -7,25 +7,21 @@ const cors = require("cors");
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://groupthree.shop",
     methods: ["POST", "GET", "PUT", "DELETE"],
     credentials: true,
-    limit:"50m"
+    limit: "50m",
   })
 );
 
-app.use(express.json({
-  limit:"50mb"
-}));
-
-
-
-
+app.use(
+  express.json({
+    limit: "50mb",
+  })
+);
 
 app.use(cookieParser());
 app.use("/test", (req, res) => {
-  console.log("testing");
-
   res.send("Hello world!");
 });
 
@@ -33,7 +29,7 @@ app.use(bodyParser.json({ limit: "150mb" }));
 app.use(
   bodyParser.urlencoded({
     parameterLimit: 100000,
-    type: 'application/json', 
+    type: "application/json",
     limit: "150mb",
     extended: true,
   })
