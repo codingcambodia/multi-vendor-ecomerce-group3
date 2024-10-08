@@ -2,9 +2,12 @@ import { React, useEffect, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import styles from "../../styles/styles";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { server } from "../../server";
+
 import { toast } from "react-toastify";
+import Logo from "../myComponents/Logo";
+import BackToHomeButton from "../myComponents/BackToHomeButton";
+import BeatLoader from "react-spinners/BeatLoader";
+import { useLoginShop } from "../../api/shop/use-login-shop";
 
 const ShopLogin = () => {
   const navigate = useNavigate();
@@ -12,30 +15,40 @@ const ShopLogin = () => {
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
 
+  const { isPending, mutate: loginShop } = useLoginShop();
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   createUser({ name, email, password, avatar }, {
+  //     onSuccess: () => {
+  //       navigate("/login")
+  //     }
+  //   })
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await axios
-      .post(
-        `${server}/shop/login-shop`,
-        {
-          email,
-          password,
-        },
-        { withCredentials: true }
-      )
-      .then((res) => {
+    loginShop({
+      email,
+      password
+    }, {
+      onSuccess: () => {
         toast.success("Login Success!");
         navigate("/dashboard");
-        window.location.reload(true); 
-      })
-      .catch((err) => {
+        window.location.reload(true);
+
+      },
+      onError: (err) => {
+        console.log(err);
         toast.error(err.response.data.message);
-      });
+      }
+    })
   };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <BackToHomeButton to="/" />
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           Login to your shop
@@ -43,6 +56,9 @@ const ShopLogin = () => {
       </div>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          <div className="flex justify-center pb-6">
+            <Logo to="/" />
+          </div>
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label
@@ -120,11 +136,18 @@ const ShopLogin = () => {
               </div>
             </div>
             <div>
-              <button
+              <button disabled={isPending}
                 type="submit"
-                className="group relative w-full h-[40px] flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
-              >
-                Submit
+                className="group relative w-full h-[40px] flex gap-x-2 justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#16A34A] hover:bg-[#288b4c]"
+              > Sign In as Shop
+                <BeatLoader color="orange"
+                  loading={isPending}
+                  cssOverride={{
+                    display: "block"
+                  }}
+                  // size={150}
+                  aria-label="Loading Spinner"
+                  data-testid="loader" />
               </button>
             </div>
             <div className={`${styles.noramlFlex} w-full`}>

@@ -92,7 +92,7 @@ const DashboardHero = () => {
         <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-white shadow rounded px-2 py-5">
           <div className="flex items-center">
             <BiDollarCircle
-              size={50}
+              size={40}
               className="mr-2"
               fill="#FF7E00"
             />
@@ -112,7 +112,7 @@ const DashboardHero = () => {
 
         <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-white shadow rounded px-2 py-5">
           <div className="flex items-center">
-            <BiBullseye size={50}
+            <BiBullseye size={40}
               className="mr-2"
               fill="#FF7E00" />
             <h3
@@ -130,7 +130,7 @@ const DashboardHero = () => {
         <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-white shadow rounded px-2 py-5">
           <div className="flex items-center">
             <BiStoreAlt
-            size={50}
+            size={40}
             className="mr-2"
             fill="#FF7E00" 
             />

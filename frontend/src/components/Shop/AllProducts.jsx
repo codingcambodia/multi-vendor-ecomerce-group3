@@ -1,29 +1,35 @@
 import { Button, Drawer } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
 import React, { useEffect, useState } from "react";
-import { AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
+import { AiOutlineEye } from "react-icons/ai";
+import {  useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getAllProductsShop } from "../../redux/actions/product";
-import { deleteProduct } from "../../redux/actions/product";
+
 import Loader from "../Layout/Loader";
 import styles from "../../styles/styles";
 import CreateProduct from "./CreateProduct";
+import DeleteConfirmation from "../myComponents/DeleteConfirmation";
+import { useGetProductsByShop } from "../../api/product/use-getproducts-by-shop";
+import { useDeleteProduct } from "../../api/product/use-delete-product";
+import { toast } from "react-toastify";
 
 const AllProducts = () => {
-  const { products, isLoading } = useSelector((state) => state.products);
   const { seller } = useSelector((state) => state.seller);
   const [openDrawer, setOpenDrawer] = useState(false);
+  const { isPending: getLoading, data } = useGetProductsByShop(seller._id);
+  const { isPending: deletePending, mutate: deleteProduct } = useDeleteProduct();
 
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getAllProductsShop(seller._id));
-  }, [dispatch]);
-
+ 
   const handleDelete = (id) => {
-    dispatch(deleteProduct(id));
-    window.location.reload();
+    deleteProduct(id, {
+      onSuccess: () => {
+        toast.success("product deleted!");
+      },
+      onError: (err) => {
+        toast.error(err.response.data.message);
+      }
+    })
+  
   };
 
   const columns = [
@@ -84,9 +90,7 @@ const AllProducts = () => {
       renderCell: (params) => {
         return (
           <>
-            <Button onClick={() => handleDelete(params.id)}>
-              <AiOutlineDelete size={20} />
-            </Button>
+            <DeleteConfirmation onDelete={() => handleDelete(params.id)} />
           </>
         );
       },
@@ -95,8 +99,8 @@ const AllProducts = () => {
 
   const row = [];
 
-  products &&
-    products.forEach((item) => {
+  data?.products &&
+    data?.products.forEach((item) => {
       row.push({
         id: item._id,
         name: item.name,
@@ -113,6 +117,8 @@ const AllProducts = () => {
   const handleCloseDrawer = () => {
     setOpenDrawer(false)
   }
+
+  const isLoading = getLoading || deletePending;
 
   return (
     <>
@@ -135,11 +141,9 @@ const AllProducts = () => {
           />
         </div>
       )}
-
-
       <Drawer anchor="right" open={openDrawer} onClose={handleCloseDrawer}>
         <div className="w-[560px] p-8">
-        <CreateProduct/>
+          <CreateProduct closeDrawer={handleCloseDrawer} />
         </div>
       </Drawer>
     </>

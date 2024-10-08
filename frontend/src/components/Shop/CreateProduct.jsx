@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { createProduct } from "../../redux/actions/product";
+
 import { categoriesData } from "../../static/data";
 import { toast } from "react-toastify";
 import styles from "../../styles/styles";
+import { useCreateProduct } from "../../api/product/user-create-product";
+import BeatLoader from "react-spinners/BeatLoader";
 
-const CreateProduct = () => {
+const CreateProduct = ({closeDrawer}) => {
   const { seller } = useSelector((state) => state.seller);
-  const { success, error } = useSelector((state) => state.products);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+
 
   const [images, setImages] = useState([]);
   const [name, setName] = useState("");
@@ -22,16 +22,9 @@ const CreateProduct = () => {
   const [discountPrice, setDiscountPrice] = useState();
   const [stock, setStock] = useState();
 
-  useEffect(() => {
-    if (error) {
-      toast.error(error);
-    }
-    if (success) {
-      toast.success("Product created successfully!");
-      navigate("/dashboard");
-      window.location.reload();
-    }
-  }, [dispatch, error, success]);
+  const { isPending, mutate: createProduct } = useCreateProduct()
+
+
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
@@ -66,19 +59,29 @@ const CreateProduct = () => {
     newForm.append("discountPrice", discountPrice);
     newForm.append("stock", stock);
     newForm.append("shopId", seller._id);
-    dispatch(
-      createProduct({
-        name,
-        description,
-        category,
-        tags,
-        originalPrice,
-        discountPrice,
-        stock,
-        shopId: seller._id,
-        images,
-      })
-    );
+
+    createProduct({
+      name,
+      description,
+      category,
+      tags,
+      originalPrice,
+      discountPrice,
+      stock,
+      shopId: seller._id,
+      images,
+    }, {
+      onSuccess: () => {
+        toast.success("Product created successfully!");
+        closeDrawer()
+      },
+      onError: (err) => {
+        toast.error(err.response.data.message);
+      }
+
+    }
+
+    )
   };
 
   return (
@@ -108,7 +111,7 @@ const CreateProduct = () => {
           <textarea
             cols="30"
             required
-            rows="8"
+            rows="4"
             type="text"
             name="description"
             value={description}
@@ -149,30 +152,32 @@ const CreateProduct = () => {
           />
         </div>
         <br />
-        <div>
-          <label className="pb-2">Original Price</label>
-          <input
-            type="number"
-            name="price"
-            value={originalPrice}
-            className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            onChange={(e) => setOriginalPrice(e.target.value)}
-            placeholder="Enter your product price..."
-          />
-        </div>
-        <br />
-        <div>
-          <label className="pb-2">
-            Price (With Discount) <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="number"
-            name="price"
-            value={discountPrice}
-            className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            onChange={(e) => setDiscountPrice(e.target.value)}
-            placeholder="Enter your product price with discount..."
-          />
+        <div className="flex items-center justify-between">
+          <div>
+            <label className="pb-2">Original Price</label>
+            <input
+              type="number"
+              name="price"
+              value={originalPrice}
+              className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              onChange={(e) => setOriginalPrice(e.target.value)}
+              placeholder="Enter your product price..."
+            />
+          </div>
+
+          <div>
+            <label className="pb-2">
+              Price (With Discount) <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="number"
+              name="price"
+              value={discountPrice}
+              className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              onChange={(e) => setDiscountPrice(e.target.value)}
+              placeholder="Enter your product price with discount..."
+            />
+          </div>
         </div>
         <br />
         <div>
@@ -217,12 +222,20 @@ const CreateProduct = () => {
           </div>
           <br />
           <div>
-            <button type="submit" className={styles.button}>Create</button>
-            {/* <input
+            <button disabled={isPending}
               type="submit"
-              value="Create"
-              className="mt-2 cursor-pointer appearance-none text-center block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            /> */}
+              className="group relative w-full h-[40px] flex gap-x-2 justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#16A34A] hover:bg-[#288b4c]"
+            > Create Coupon
+              <BeatLoader color="orange"
+                loading={isPending}
+                cssOverride={{
+                  display: "block"
+                }}
+                // size={150}
+                aria-label="Loading Spinner"
+                data-testid="loader" />
+            </button>
+
           </div>
         </div>
       </form>

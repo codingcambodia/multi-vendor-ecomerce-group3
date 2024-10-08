@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 import { categoriesData } from "../../static/data";
 import { toast } from "react-toastify";
-import { createevent } from "../../redux/actions/event";
-import styles from "../../styles/styles";
 
-const CreateEvent = () => {
+import BeatLoader from "react-spinners/BeatLoader";
+import { useCreateEvent } from "../../api/event/use-create-event";
+
+const CreateEvent = ({ closeDrawer }) => {
   const { seller } = useSelector((state) => state.seller);
-  const { success, error } = useSelector((state) => state.events);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const { success, error } = useSelector((state) => state.events);
+  // const navigate = useNavigate();
+
+
+  const { isPending, mutate: createEvent } = useCreateEvent();
 
   const [images, setImages] = useState([]);
   const [name, setName] = useState("");
@@ -44,26 +47,16 @@ const CreateEvent = () => {
 
   const minEndDate = startDate
     ? new Date(startDate.getTime() + 3 * 24 * 60 * 60 * 1000)
-        .toISOString()
-        .slice(0, 10)
+      .toISOString()
+      .slice(0, 10)
     : "";
 
-  useEffect(() => {
-    if (error) {
-      toast.error(error);
-    }
-    if (success) {
-      toast.success("Event created successfully!");
-      navigate("/dashboard-events");
-      window.location.reload();
-    }
-  }, [dispatch, error, success]);
+
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
 
     setImages([]);
-
     files.forEach((file) => {
       const reader = new FileReader();
 
@@ -84,7 +77,9 @@ const CreateEvent = () => {
     images.forEach((image) => {
       newForm.append("images", image);
     });
-    const data = {
+
+
+    createEvent({
       name,
       description,
       category,
@@ -95,10 +90,22 @@ const CreateEvent = () => {
       images,
       shopId: seller._id,
       start_Date: startDate?.toISOString(),
-      Finish_Date: endDate?.toISOString(),
-    };
-    dispatch(createevent(data));
+      Finish_Date: endDate?.toISOString()
+    }, {
+      onSuccess: () => {
+        toast.success("Event created successfully!");
+        closeDrawer()
+      },
+      onError: (err) => {
+        toast.error(err.response.data.message);
+      }
+
+
+    })
   };
+
+
+
 
   return (
     <div className="w-full">
@@ -268,12 +275,20 @@ const CreateEvent = () => {
           </div>
           <br />
           <div>
-          <button type="submit" className={styles.button}>Create</button>
-            {/* <input
+            {/* <button type="submit" className={styles.button}>Create</button> */}
+            <button disabled={isPending}
               type="submit"
-              value="Create"
-              className="mt-2 cursor-pointer appearance-none text-center block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            /> */}
+              className="group relative w-full h-[40px] flex gap-x-2 justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#16A34A] hover:bg-[#288b4c]"
+            > Create Coupon
+              <BeatLoader color="orange"
+                loading={isPending}
+                cssOverride={{
+                  display: "block"
+                }}
+                // size={150}
+                aria-label="Loading Spinner"
+                data-testid="loader" />
+            </button>
           </div>
         </div>
       </form>

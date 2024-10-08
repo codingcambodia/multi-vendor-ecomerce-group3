@@ -5,16 +5,21 @@ import { AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { deleteEvent, getAllEventsShop } from "../../redux/actions/event";
-import { getAllProductsShop } from "../../redux/actions/product";
-import { deleteProduct } from "../../redux/actions/product";
+
 import Loader from "../Layout/Loader";
 import CreateEvent from "./CreateEvent";
 import styles from "../../styles/styles";
+import DeleteConfirmation from "../myComponents/DeleteConfirmation";
+import { useGetEventsByShop } from "../../api/event/use-get-events-by-shop";
+import { useDeleteEvent } from "../../api/event/use-delete-event";
+import { toast } from "react-toastify";
 
 const AllEvents = () => {
-  const { events, isLoading } = useSelector((state) => state.events);
+
   const { seller } = useSelector((state) => state.seller);
   const [openDrawer, setOpenDrawer] = useState(false);
+  const { isPending: getLoading, data } = useGetEventsByShop(seller._id);
+  const { isPending: deletePending, mutate: deleteEvent } = useDeleteEvent();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,8 +27,14 @@ const AllEvents = () => {
   }, [dispatch]);
 
   const handleDelete = (id) => {
-    dispatch(deleteEvent(id));
-    window.location.reload();
+    deleteEvent(id, {
+      onSuccess: () => {
+        toast.success("Event deleted!");
+      },
+      onError: (err) => {
+        toast.error(err.response.data.message);
+      }
+    })
   }
 
   const columns = [
@@ -85,13 +96,7 @@ const AllEvents = () => {
       sortable: false,
       renderCell: (params) => {
         return (
-          <>
-            <Button
-              onClick={() => handleDelete(params.id)}
-            >
-              <AiOutlineDelete size={20} />
-            </Button>
-          </>
+          <DeleteConfirmation onDelete={() => handleDelete(params.id)} />
         );
       },
     },
@@ -99,8 +104,8 @@ const AllEvents = () => {
 
   const row = [];
 
-  events &&
-    events.forEach((item) => {
+  data?.events &&
+    data?.events.forEach((item) => {
       row.push({
         id: item._id,
         name: item.name,
@@ -109,22 +114,25 @@ const AllEvents = () => {
         sold: item.sold_out,
       });
     });
-    const handleOpenDrawer = () => {
-      setOpenDrawer(true)
-    }
-    const handleCloseDrawer = () => {
-      setOpenDrawer(false)
-    }
+  const handleOpenDrawer = () => {
+    setOpenDrawer(true)
+  }
+  const handleCloseDrawer = () => {
+    setOpenDrawer(false)
+  }
+
+
+  const isLoading = getLoading || deletePending;
   return (
     <>
       {isLoading ? (
         <Loader />
       ) : (
         <div className="w-full mx-4 mt-8 bg-white p-8 pt-4">
-        <div className="flex py-8 justify-between items-center">
-          <h2 className="text-xl font-semibold">Event List</h2>
-          <button onClick={handleOpenDrawer} className={styles.button}>Create new</button>
-        </div>
+          <div className="flex py-8 justify-between items-center">
+            <h2 className="text-xl font-semibold">Event List</h2>
+            <button onClick={handleOpenDrawer} className={styles.button}>Create new</button>
+          </div>
           <DataGrid
             rows={row}
             columns={columns}
@@ -137,7 +145,7 @@ const AllEvents = () => {
 
       <Drawer anchor="right" open={openDrawer} onClose={handleCloseDrawer}>
         <div className="w-[560px] p-8">
-          <CreateEvent />
+          <CreateEvent closeDrawer={handleCloseDrawer} />
         </div>
       </Drawer>
     </>

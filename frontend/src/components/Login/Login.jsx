@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useLoginUser } from "../../api/users/use-login-user";
 import BeatLoader from "react-spinners/BeatLoader";
 import Logo from "../myComponents/Logo";
+import BackToHomeButton from "../myComponents/BackToHomeButton";
 
 
 const Login = () => {
@@ -31,18 +32,18 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-
+      <BackToHomeButton to="/" />
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-      
+
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           Sign In
         </h2>
       </div>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-        <div className="flex justify-center pb-6">
-          <Logo to="/" />
-        </div>
+          <div className="flex justify-center pb-6">
+            <Logo to="/" />
+          </div>
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label

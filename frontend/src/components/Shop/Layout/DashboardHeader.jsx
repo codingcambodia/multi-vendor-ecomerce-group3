@@ -1,52 +1,35 @@
 import React from "react";
-import { AiOutlineGift } from "react-icons/ai";
-import { MdOutlineLocalOffer } from "react-icons/md";
-import { FiPackage, FiShoppingBag } from "react-icons/fi";
+
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { BiMessage, BiMessageSquareDetail } from "react-icons/bi";
+import { Link, useRoutes } from "react-router-dom";
+import { BiBell } from "react-icons/bi";
 import Logo from "../../myComponents/Logo";
+import { CiShop } from "react-icons/ci";
+import axios from "axios";
+import { server } from "../../../server";
+import { VscSignOut } from "react-icons/vsc";
 
 const DashboardHeader = () => {
   const { seller } = useSelector((state) => state.seller);
+  // const route = useRoutes()
+
+  const logoutHandler = async () => {
+    axios.get(`${server}/shop/logout`, {
+      withCredentials: true,
+    });
+    // route.push("/")
+    window.location.reload();
+
+  };
   return (
-    <div className="w-full h-[80px] bg-white shadow sticky top-0 left-0 z-100 flex items-center justify-between px-4">
+    <div className="w-full h-[80px] bg-white shadow sticky top-0 left-0 z-600 flex items-center justify-between px-4">
       <div>
         <Logo to="/dashboard" />
       </div>
       <div className="flex items-center">
         <div className="flex items-center mr-6 space-x-4">
-          <Link to="/dashboard/cupouns" className="800px:block hidden">
-            <AiOutlineGift
-              color="#555"
-              size={25}
-              className=" cursor-pointer"
-            />
-          </Link>
-          <Link to="/dashboard-events" className="800px:block hidden">
-            <MdOutlineLocalOffer
-              color="#555"
-              size={25}
-              className=" cursor-pointer"
-            />
-          </Link>
-          <Link to="/dashboard-products" className="800px:block hidden">
-            <FiShoppingBag
-              color="#555"
-              size={25}
-              className=" cursor-pointer"
-            />
-          </Link>
-          <Link to="/dashboard-orders" className="800px:block hidden">
-            <FiPackage color="#555" size={25} className=" cursor-pointer" />
-          </Link>
-          <Link to="/dashboard-messages" className="800px:block hidden">
-            <BiMessage
-              color="#555"
-              size={25}
-              className=" cursor-pointer"
-            />
-          </Link>
+
+          <p className="text-lg font-[500]">{seller.name}</p>
           <Link to={`/shop/${seller._id}`}>
             <img
               src={`${seller.avatar?.url}`}
@@ -54,6 +37,11 @@ const DashboardHeader = () => {
               className="w-8 h-8 rounded-full object-cover"
             />
           </Link>
+          <Link to={`/shop/${seller._id}`}>
+            <CiShop size={25} className="text-green-500 font-semibold" />
+          </Link>
+          <BiBell size={25} className="text-orange-500" />
+          <VscSignOut onClick={logoutHandler} size={25} className="text-red-500 hover:cursor-pointer" />
         </div>
       </div>
     </div>
