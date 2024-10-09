@@ -34,7 +34,6 @@ router.post("/create-user", async (req, res, next) => {
     };
 
     const activationToken = createActivationToken(user);
-    console.log(activationToken, "token");
 
     const activationUrl = `${process.env.ACTIVATION_URL}/activation/${activationToken}`;
     try {
@@ -47,7 +46,6 @@ router.post("/create-user", async (req, res, next) => {
         success: true,
         message: `please check your email:- ${user.email} to activate your account!`,
       });
-      console.log("It is running here");
     } catch (error) {
       console.log(error, "messagge");
 

@@ -12,14 +12,7 @@ export function useLoginUser() {
     // onMutate: () => {
     //   console.log("mutate");
     // },
-    onError: (error) => {
-      // console.log(error.respnse.data);
-
-      toast.error("Login Failed!");
-    },
-    onSuccess: () => {
-      toast.success("Login Success!");
-    },
+   
     onSettled: async (_, error) => {
       if (error) {
         console.log(error);

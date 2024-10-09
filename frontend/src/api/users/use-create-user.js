@@ -9,17 +9,8 @@ export function useCreateUser() {
 
   return useMutation({
     mutationFn: (data) => createUser(data),
-    // onMutate: () => {
-    //   console.log("mutate");
-    // },
-    onError: (error) => {
-      // console.log(error.respnse.data);
-
-      toast.error("Create User Failed!");
-    },
-    onSuccess: () => {
-      toast.success("Create User Success!");
-    },
+   
+   
     onSettled: async (_, error) => {
       if (error) {
         console.log(error);

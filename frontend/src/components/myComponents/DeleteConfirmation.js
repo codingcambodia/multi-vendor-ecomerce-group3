@@ -26,20 +26,24 @@ function DeleteConfirmation({ onDelete, id }) {
 
   return (
     <>
- 
-      <Button  color="error" onClick={handleClickOpen}>
+      <Button color="error" onClick={handleClickOpen}>
         <AiOutlineDelete size={20} className="text-red-500" />
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>
-          Are you sure you want to delete this item?
-        </DialogTitle>
+        <DialogTitle>Are you sure you want to delete this item?</DialogTitle>
         <DialogContent>
           <p>This action cannot be undone.</p>
         </DialogContent>
         <DialogActions>
-          <Button color="primary" onClick={handleClose}>Cancel</Button>
-          <Button variant="contained" color="secondary" className="bg-red-500" onClick={handleDelete}>
+          <Button color="primary" onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            className="bg-red-500 "
+            onClick={handleDelete}
+          >
               Delete
           </Button>
         </DialogActions>

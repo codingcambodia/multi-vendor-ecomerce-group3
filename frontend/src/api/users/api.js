@@ -1,15 +1,21 @@
 import axios from "axios";
 
-// const BASE_URL = "http://localhost:8000/api/v2/user";
-const BASE_URL = "https://backend.groupthree.shop/api/v2/user";
+const BASE_URL = "http://localhost:8000/api/v2/user";
+// const BASE_URL = "https://backend.groupthree.shop/api/v2/user";
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
+  headers: {
+    "Access-Control-Allow-Credentials": true,
+  },
 });
 
 // export const getAccounts = async () => {
 //   return (await axiosInstance.get<Account[]>("accounts")).data.map((account) => account);
 // };
+export const updatePassword = async (data) => {
+  await axiosInstance.put("update-user-password", data);
+};
 
 export const getUser = async () => {
   return (await axiosInstance.get("getuser")).data;
@@ -17,6 +23,13 @@ export const getUser = async () => {
 
 export const createUser = async (data) => {
   await axiosInstance.post("create-user", data);
+};
+
+export const updateUserInfo = async (data) => {
+  await axiosInstance.put("update-user-info", data);
+};
+export const updateUserAvatar = async (data) => {
+  await axiosInstance.put("update-avatar", data);
 };
 
 export const loginUser = async (data) => {
@@ -27,6 +40,18 @@ export const activateUser = async (activation_token) => {
     activation_token: activation_token,
   });
 };
+export const addCustomerAddress = async (data) => {
+  await axiosInstance.put("update-user-addresses", data);
+};
+
+export const deleteCustomerAddress = async (id) => {
+  await axiosInstance.delete(`delete-user-address/${id}`);
+};
+
+export const logoutCustomer = async (id) => {
+  await axiosInstance.get(`logout`);
+};
+
 // // TODO:
 // export const deleteBulkAccount = async (ids: string[]) => {
 //   for (let i = 0; i < ids.length; i++) {

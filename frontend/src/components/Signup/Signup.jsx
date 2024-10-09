@@ -8,6 +8,7 @@ import BeatLoader from "react-spinners/BeatLoader";
 import { useCreateUser } from "../../api/users/use-create-user";
 import Logo from "../myComponents/Logo";
 import BackToHomeButton from "../myComponents/BackToHomeButton";
+import { toast } from "react-toastify";
 
 const Singup = () => {
   const { isPending, mutate: createUser } = useCreateUser();
@@ -34,8 +35,12 @@ const Singup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     createUser({ name, email, password, avatar }, {
-      onSuccess: () => {
+      onSuccess: (res) => {
+        toast.success(res.response.data.message)
         navigate("/login")
+      },
+      onError: (err) => {
+        toast.error(err.response.data.message);
       }
     })
   };
@@ -55,9 +60,9 @@ const Singup = () => {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-        <div className="flex justify-center pb-6">
-          <Logo to="/" />
-        </div>
+          <div className="flex justify-center pb-6">
+            <Logo to="/" />
+          </div>
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../../styles/styles";
-import { categoriesData, productData } from "../../static/data";
+import { categoriesData } from "../../static/data";
 import {
   AiOutlineHeart,
   AiOutlineSearch,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
-import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
+import { IoIosArrowDown } from "react-icons/io";
 import { BiMenuAltLeft } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 import DropDown from "./DropDown";
@@ -17,15 +17,14 @@ import Cart from "../cart/Cart";
 import Wishlist from "../Wishlist/Wishlist";
 import { RxCross1 } from "react-icons/rx";
 import Logo from "../myComponents/Logo";
-import { IoFlashOffSharp } from "react-icons/io5";
+
 import { BsShop } from "react-icons/bs";
+import { Drawer } from "@material-ui/core";
 
 
 
 const Header = ({ activeHeading }) => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
-  console.log(isAuthenticated, user);
-
   const { isSeller } = useSelector((state) => state.seller);
   const { wishlist } = useSelector((state) => state.wishlist);
   const { cart } = useSelector((state) => state.cart);
@@ -192,6 +191,7 @@ const Header = ({ activeHeading }) => {
             {/* cart popup */}
             {openCart ? <Cart setOpenCart={setOpenCart} /> : null}
 
+
             {/* wishlist popup */}
             {openWishlist ? (
               <Wishlist setOpenWishlist={setOpenWishlist} />
@@ -228,11 +228,7 @@ const Header = ({ activeHeading }) => {
               </span>
             </div>
           </div>
-          {/* cart popup */}
-          {openCart ? <Cart setOpenCart={setOpenCart} /> : null}
-
-          {/* wishlist popup */}
-          {openWishlist ? <Wishlist setOpenWishlist={setOpenWishlist} /> : null}
+       
         </div>
 
         {/* header sidebar */}
@@ -335,6 +331,17 @@ const Header = ({ activeHeading }) => {
           </div>
         )}
       </div>
+
+      <Drawer anchor="right" open={openCart} onClose={() => setOpenCart(false)}>
+        <div className="w-[450px] md:w-[500px] p-8">
+          <Cart />
+        </div>
+      </Drawer>
+      <Drawer anchor="right" open={openWishlist} onClose={() => setOpenWishlist(false)}>
+        <div className="w-[450px] md:w-[500px] p-8">
+          <Wishlist/>
+        </div>
+      </Drawer>
     </>
   );
 };

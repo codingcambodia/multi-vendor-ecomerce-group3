@@ -7,6 +7,7 @@ import { useLoginUser } from "../../api/users/use-login-user";
 import BeatLoader from "react-spinners/BeatLoader";
 import Logo from "../myComponents/Logo";
 import BackToHomeButton from "../myComponents/BackToHomeButton";
+import { toast } from "react-toastify";
 
 
 const Login = () => {
@@ -21,13 +22,15 @@ const Login = () => {
     e.preventDefault();
 
     loginUser({ email, password }, {
+      onError: (err) => {
+        toast.error(err.response.data.message);
+      },
       onSuccess: () => {
+        toast.success("Login Success!");
         navigate("/");
         window.location.reload(true);
-      }
+      },
     });
-
-
   };
 
   return (

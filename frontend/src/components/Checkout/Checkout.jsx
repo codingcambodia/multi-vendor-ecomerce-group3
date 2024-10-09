@@ -27,31 +27,31 @@ const Checkout = () => {
   }, []);
 
   const paymentSubmit = () => {
-   if(address1 === "" || address2 === "" || zipCode === null || country === "" || city === ""){
+    if (address1 === "" || address2 === "" || zipCode === null || country === "" || city === "") {
       toast.error("Please choose your delivery address!")
-   } else{
-    const shippingAddress = {
-      address1,
-      address2,
-      zipCode,
-      country,
-      city,
-    };
+    } else {
+      const shippingAddress = {
+        address1,
+        address2,
+        zipCode,
+        country,
+        city,
+      };
 
-    const orderData = {
-      cart,
-      totalPrice,
-      subTotalPrice,
-      shipping,
-      discountPrice,
-      shippingAddress,
-      user,
+      const orderData = {
+        cart,
+        totalPrice,
+        subTotalPrice,
+        shipping,
+        discountPrice,
+        shippingAddress,
+        user,
+      }
+
+      // update local storage with the updated orders array
+      localStorage.setItem("latestOrder", JSON.stringify(orderData));
+      navigate("/payment");
     }
-
-    // update local storage with the updated orders array
-    localStorage.setItem("latestOrder", JSON.stringify(orderData));
-    navigate("/payment");
-   }
   };
 
   const subTotalPrice = cart.reduce(
@@ -100,7 +100,7 @@ const Checkout = () => {
     ? (subTotalPrice + shipping - discountPercentenge).toFixed(2)
     : (subTotalPrice + shipping).toFixed(2);
 
-  console.log(discountPercentenge);
+
 
   return (
     <div className="w-full flex flex-col items-center py-8">
@@ -271,14 +271,14 @@ const ShippingInfo = ({
 
         <div></div>
       </form>
-      <h5
-        className="text-[18px] cursor-pointer inline-block"
+      <button
+        className={`bg-[#16A34A] hover:bg-green-600 p-3 text-white rounded-md`}
         onClick={() => setUserInfo(!userInfo)}
       >
         Choose From saved address
-      </h5>
+      </button>
       {userInfo && (
-        <div>
+        <div className="border border-green-600 p-4 mt-2 rounded-md">
           {user &&
             user.addresses.map((item, index) => (
               <div className="w-full flex mt-1">

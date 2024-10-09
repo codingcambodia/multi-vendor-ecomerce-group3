@@ -53,6 +53,8 @@ router.post(
 router.get(
   "/get-all-orders/:userId",
   catchAsyncErrors(async (req, res, next) => {
+    console.log("comming here");
+
     try {
       const orders = await Order.find({ "user._id": req.params.userId }).sort({
         createdAt: -1,
@@ -111,7 +113,7 @@ router.put(
       if (req.body.status === "Delivered") {
         order.deliveredAt = Date.now();
         order.paymentInfo.status = "Succeeded";
-        const serviceCharge = order.totalPrice * .10;
+        const serviceCharge = order.totalPrice * 0.1;
         await updateSellerInfo(order.totalPrice - serviceCharge);
       }
 
@@ -133,7 +135,7 @@ router.put(
 
       async function updateSellerInfo(amount) {
         const seller = await Shop.findById(req.seller.id);
-        
+
         seller.availableBalance = amount;
 
         await seller.save();
