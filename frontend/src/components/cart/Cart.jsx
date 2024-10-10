@@ -119,22 +119,23 @@ const CartSingle = ({ data, quantityChangeHandler, removeFromCartHandler }) => {
           </h4>
         </div>
         <div className="flex items-center ml-4">
-          <div
-            className={`bg-orange-500 border border-orange-600 rounded-full w-[25px] h-[25px] ${styles.noramlFlex} justify-center cursor-pointer`}
-            onClick={() => increment(data)}
-          >
-            <HiPlus size={18} color="#fff" />
-          </div>
-          <span className="p-[10px]">{data.qty}</span>
+         
           <div
             className="bg-blue-500 rounded-full w-[25px] h-[25px] flex items-center justify-center  cursor-pointer"
             onClick={() => decrement(data)}
           >
             <HiOutlineMinus size={16} color="white" />
           </div>
+          <span className="p-[10px]">{data.qty}</span>
+          <div
+            className={`bg-orange-500 border border-orange-600 rounded-full w-[25px] h-[25px] ${styles.noramlFlex} justify-center cursor-pointer`}
+            onClick={() => increment(data)}
+          >
+            <HiPlus size={18} color="#fff" />
+          </div>
         </div>
         <RxCross1
-          className="cursor-pointer ml-auto text-red-500" title="remove from cart"
+          className="cursor-pointer ml-auto text-red-600" title="remove from cart"
           onClick={() => removeFromCartHandler(data)}
         />
       </div>

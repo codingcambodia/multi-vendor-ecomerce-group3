@@ -53,7 +53,7 @@ router.post(
 router.get(
   "/get-all-orders/:userId",
   catchAsyncErrors(async (req, res, next) => {
-    console.log("comming here");
+ 
 
     try {
       const orders = await Order.find({ "user._id": req.params.userId }).sort({
@@ -116,7 +116,6 @@ router.put(
         const serviceCharge = order.totalPrice * 0.1;
         await updateSellerInfo(order.totalPrice - serviceCharge);
       }
-
       await order.save({ validateBeforeSave: false });
 
       res.status(200).json({

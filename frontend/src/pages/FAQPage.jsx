@@ -25,7 +25,7 @@ const Faq = () => {
   };
 
   return (
-    <div className={`${styles.section} my-8`}>
+    <div className={`my-8 max-w-3xl mx-auto bg-white shadow-sm p-4`}>
       <h2 className="text-3xl font-bold text-gray-900 mb-8">FAQ</h2>
       <div className="mx-auto space-y-4">
         {/* single Faq */}
@@ -73,13 +73,12 @@ const Faq = () => {
               <p className="text-base text-gray-500">
                 If you're not satisfied with your purchase, we accept returns
                 within 30 days of delivery. To initiate a return, please email
-                us at support@myecommercestore.com with your order number and a
+                us at support@groupthree.shop with your order number and a
                 brief explanation of why you're returning the item.
               </p>
             </div>
           )}
         </div>
-
         <div className="border-b border-gray-200 pb-4">
           <button
             className="flex items-center justify-between w-full"
@@ -171,8 +170,8 @@ const Faq = () => {
             <div className="mt-4">
               <p className="text-base text-gray-500">
                 You can contact our customer support team by emailing us at
-                support@myecommercestore.com, or by calling us at (555) 123-4567
-                between the hours of 9am and 5pm EST, Monday through Friday.
+                support@groupthree.com, or by calling us at (855) 81336131
+                between the hours of 9am and 5pm Bangkok, Monday through Friday.
               </p>
             </div>
           )}
@@ -269,7 +268,7 @@ const Faq = () => {
           {activeTab === 6 && (
             <div className="mt-4">
               <p className="text-base text-gray-500">
-                Currently, we only offer shipping within the United States.
+                Currently, we only offer shipping within Cambodia.
               </p>
             </div>
           )}

@@ -131,7 +131,9 @@ router.put(
       const { user, rating, comment, productId, orderId } = req.body;
 
       const product = await Product.findById(productId);
-
+      if (!product) {
+        return next(new ErrorHandler("Product is deleted from the shop", 400));
+      }
       const review = {
         user,
         rating,

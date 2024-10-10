@@ -12,7 +12,8 @@ const styles = {
     cart_button_text:"text-[#fff] text-[16px] font-[600]",
     input:"w-full border px-1 py-2.5 rounded-md",
     activeStatus:"w-[10px] h-[10px] rounded-full absolute top-0 right-1 bg-[#40d132]",
-    noramlFlex:"flex items-center"
+    noramlFlex:"flex items-center",
+    redColor:"#f63b60"
   };
   
   export default styles;

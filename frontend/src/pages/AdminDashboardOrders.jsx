@@ -74,8 +74,8 @@ const AdminDashboardOrders = () => {
             <AdminSideBar active={2} />
           </div>
 
-          <div className="w-full min-h-[45vh] pt-5 rounded flex justify-center">
-            <div className="w-[97%] flex justify-center">
+          <div className="w-full min-h-[45vh] bg-white p-8 rounded flex justify-center m-8">
+         
               <DataGrid
                 rows={row}
                 columns={columns}
@@ -83,7 +83,7 @@ const AdminDashboardOrders = () => {
                 disableSelectionOnClick
                 autoHeight
               />
-            </div>
+         
           </div>
         </div>
       </div>

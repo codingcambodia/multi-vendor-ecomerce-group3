@@ -1,6 +1,7 @@
 import axios from "axios";
+import { server } from "../../server";
 
-const BASE_URL = "http://localhost:8000/api/v2/coupon";
+const BASE_URL = `${server}/coupon`;
 // const BASE_URL = "https://backend.groupthree.shop/api/v2/coupon";
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
