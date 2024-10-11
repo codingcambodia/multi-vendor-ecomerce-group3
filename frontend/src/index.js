@@ -12,10 +12,15 @@ const queryClient = new QueryClient();
 ReactDOM.render(
   <HelmetProvider>
     <Helmet prioritizeSeoTags>
-      <title>GROUPTHREE SHOP</title>
+      <title>Group Three E-commerce platform</title>
+      <meta
+        name="description"
+        content="This is an ecomerce website that allow sellers to sell 
+        and manage their transaction online"
+      />
       <link rel="notImportant" href="https://groupthree.shop" />
-      <meta name="whatever" value="notImportant" />
-      <link rel="canonical" href="https://www.tacobell.com" />
+      <meta name="multivendor" value="notImportant" />
+      <link rel="canonical" href="https://www.google.com" />
       <meta
         property="og:title"
         content="This project is made by group three assignment"

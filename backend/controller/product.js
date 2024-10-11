@@ -34,7 +34,6 @@ router.post(
           const result = await cloudinary.v2.uploader.upload(images[i], {
             folder: "products",
           });
-
           imagesLinks.push({
             public_id: result.public_id,
             url: result.secure_url,
@@ -64,7 +63,6 @@ router.get(
   catchAsyncErrors(async (req, res, next) => {
     try {
       const products = await Product.find({ shopId: req.params.id });
-
       res.status(201).json({
         success: true,
         products,
@@ -170,7 +168,6 @@ router.put(
         { $set: { "cart.$[elem].isReviewed": true } },
         { arrayFilters: [{ "elem._id": productId }], new: true }
       );
-
       res.status(200).json({
         success: true,
         message: "Reviwed succesfully!",

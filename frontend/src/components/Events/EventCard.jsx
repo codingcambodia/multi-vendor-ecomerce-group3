@@ -11,11 +11,11 @@ const EventCard = ({ active, data }) => {
   const dispatch = useDispatch();
 
   const addToCartHandler = (data) => {
-    const isItemExists = cart && cart.find((i) => i._id === data._id);
+    const isItemExists = cart && cart?.find((i) => i._id === data._id);
     if (isItemExists) {
       toast.error("Item already in cart!");
     } else {
-      if (data.stock < 1) {
+      if (data?.stock < 1) {
         toast.error("Product stock limited!");
       } else {
         const cartData = { ...data, qty: 1 };
@@ -30,24 +30,24 @@ const EventCard = ({ active, data }) => {
         } lg:flex p-4`}
     >
       <div className="w-full lg:-w[50%] ">
-        <img src={`${data.images[0]?.url}`} alt="" />
+        <img src={`${data?.images[0]?.url}`} alt="" />
       </div>
       <div className="w-full lg:[w-50%] flex flex-col justify-center">
-        <h2 className={`${styles.productTitle}`}>{data.name}</h2>
+        <h2 className={`${styles.productTitle}`}>{data?.name}</h2>
         <p>{data.description}</p>
         <div className="flex py-2 flex-col">
           <div className="flex">
             <h5 className="font-[500] text-[18px] text-[#d55b45] pr-3 line-through">
-              {data.originalPrice}$
+              {data?.originalPrice}$
             </h5>
 
             <h5 className="font-bold text-[20px] text-[#333] font-Roboto">
-              {data.discountPrice}$
+              {data?.discountPrice}$
             </h5>
 
           </div>
           <p className="pr-3 font-[400] text-[17px] text-[#44a55e]">
-            {data.sold_out} sold
+            {data?.sold_out} sold
           </p>
 
         </div>

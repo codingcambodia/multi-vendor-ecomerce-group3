@@ -31,28 +31,6 @@ const UserOrderDetails = () => {
   const data = orders && orders.find((item) => item._id === id);
 
   const reviewHandler = async (e) => {
-    // await axios
-    //   .put(
-    //     `${server}/product/create-new-review`,
-    //     {
-    //       user,
-    //       rating,
-    //       comment,
-    //       productId: selectedItem?._id,
-    //       orderId: id,
-    //     },
-    //     { withCredentials: true }
-    //   )
-    //   .then((res) => {
-    //     toast.success(res.data.message);
-    //     dispatch(getAllOrdersOfUser(user._id));
-    //     setComment("");
-    //     setRating(null);
-    //     setOpen(false);
-    //   })
-    //   .catch((error) => {
-    //     toast.error(error);
-    //   });
 
     createReview({
       user,
@@ -74,6 +52,7 @@ const UserOrderDetails = () => {
     })
   };
 
+
   const refundHandler = async () => {
     await axios.put(`${server}/order/order-refund/${id}`, {
       status: "Processing refund"
@@ -88,7 +67,6 @@ const UserOrderDetails = () => {
   return (
 
     <>
-
       {isPending ? <Loader /> :
         <div className={`py-4 min-h-screen ${styles.section} max-w-[900px] bg-white shadow-md p-8 rounded-md my-10`}>
           <div className="w-full flex items-center justify-between">
@@ -256,8 +234,9 @@ const UserOrderDetails = () => {
           </div>
           <br />
           {/* <Link to="/">
-        <div className={`${styles.button} text-white`}>Send Message <br/> Pending</div>
-      </Link> */}
+            <div className={`${styles.button} text-white`}>Send Message <br /></div>
+          </Link> */}
+          <button onClick={refundHandler}> Refund</button>
         </div>
       }
     </>

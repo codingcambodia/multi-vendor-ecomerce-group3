@@ -53,8 +53,6 @@ router.post(
 router.get(
   "/get-all-orders/:userId",
   catchAsyncErrors(async (req, res, next) => {
- 
-
     try {
       const orders = await Order.find({ "user._id": req.params.userId }).sort({
         createdAt: -1,
@@ -109,7 +107,6 @@ router.put(
       }
 
       order.status = req.body.status;
-
       if (req.body.status === "Delivered") {
         order.deliveredAt = Date.now();
         order.paymentInfo.status = "Succeeded";
@@ -134,9 +131,7 @@ router.put(
 
       async function updateSellerInfo(amount) {
         const seller = await Shop.findById(req.seller.id);
-
         seller.availableBalance = amount;
-
         await seller.save();
       }
     } catch (error) {
@@ -178,15 +173,11 @@ router.put(
   catchAsyncErrors(async (req, res, next) => {
     try {
       const order = await Order.findById(req.params.id);
-
       if (!order) {
         return next(new ErrorHandler("Order not found with this id", 400));
       }
-
       order.status = req.body.status;
-
       await order.save();
-
       res.status(200).json({
         success: true,
         message: "Order Refund successfull!",
@@ -219,7 +210,9 @@ router.get(
   isAdmin("Admin"),
   catchAsyncErrors(async (req, res, next) => {
     try {
-      const orders = await Order.find().sort({
+      const orders = await Order.find({
+        status: { $ne: "Refund Success" },
+      }).sort({
         deliveredAt: -1,
         createdAt: -1,
       });
