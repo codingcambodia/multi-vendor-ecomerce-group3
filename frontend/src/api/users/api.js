@@ -48,4 +48,3 @@ export const deleteCustomerAddress = async (id) => {
 export const logoutCustomer = async (id) => {
   await axiosInstance.get(`logout`);
 };
-

@@ -6,11 +6,10 @@ import { Link } from "react-router-dom";
 import Loader from "../Layout/Loader";
 import { getAllOrdersOfShop } from "../../redux/actions/order";
 import { AiOutlineArrowRight } from "react-icons/ai";
-
+import { format } from "date-fns";
 const AllOrders = () => {
   const { orders, isLoading } = useSelector((state) => state.order);
   const { seller } = useSelector((state) => state.seller);
-
 
   const dispatch = useDispatch();
 
@@ -19,7 +18,15 @@ const AllOrders = () => {
   }, [dispatch]);
 
   const columns = [
-    { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
+    {
+      field: "orderAt",
+      headerName: "Order Date",
+      minWidth: 150,
+      flex: 0.8
+    },
+
+
+    // { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
 
     {
       field: "status",
@@ -36,7 +43,7 @@ const AllOrders = () => {
       field: "itemsQty",
       headerName: "Items Qty",
       type: "number",
-      minWidth: 130,
+      minWidth: 80,
       flex: 0.7,
     },
 
@@ -44,14 +51,14 @@ const AllOrders = () => {
       field: "total",
       headerName: "Total",
       type: "number",
-      minWidth: 130,
+      minWidth: 90,
       flex: 0.8,
     },
 
     {
       field: " ",
       flex: 1,
-      minWidth: 150,
+      minWidth: 100,
       headerName: "",
       type: "number",
       sortable: false,
@@ -73,11 +80,14 @@ const AllOrders = () => {
 
   orders &&
     orders.forEach((item) => {
+
       row.push({
+        orderAt: format(item.createdAt, "yyyy-MM-dd HH:mm:ss"),
         id: item._id,
         itemsQty: item.cart.length,
         total: "US$ " + item.totalPrice,
         status: item.status,
+
       });
     });
 

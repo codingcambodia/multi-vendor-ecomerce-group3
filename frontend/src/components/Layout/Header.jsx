@@ -101,7 +101,7 @@ const Header = ({ activeHeading }) => {
           <div className={`${styles.button}`}>
             <Link to={`${isSeller ? "/dashboard" : "/shop-create"}`}>
               <h1 className=" flex items-center space-x-2 ">
-                {isSeller ? "Go Dashboard" : "Become Vendor"}{" "}
+                {isSeller ? "Go Dashboard" : "Become Seller"}{" "}
                 <BsShop className="ml-1" />
               </h1>
             </Link>

@@ -18,7 +18,7 @@ router.post(
       const { email } = req.body;
       const sellerEmail = await Shop.findOne({ email });
       if (sellerEmail) {
-        return next(new ErrorHandler("User already exists", 400));
+        return next(new ErrorHandler("Email already exists", 400));
       }
 
       const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {

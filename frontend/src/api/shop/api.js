@@ -7,7 +7,6 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 
-
 export const createShop = async (data) => {
   await axiosInstance.post("create-shop", data);
 };

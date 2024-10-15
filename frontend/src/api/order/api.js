@@ -6,6 +6,9 @@ const BASE_URL = `${server}/order`;
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 // export const getShop = async () => {
@@ -21,6 +24,10 @@ export const getAllOrderByCustomers = async (customer_id) => {
 
   return (await axiosInstance.get(`get-all-orders/${customer_id}`)).data;
 };
-// export const deleteCoupon = async (id) => {
-//   await axiosInstance.delete(`delete-coupon/${id}`);
-// };
+export const createOrder = async (data) => {
+  await axiosInstance.post(`create-order`, data);
+};
+
+export const requestRefund = async (data, id) => {
+  await axiosInstance.put(`order-refund/${id}`, data);
+};

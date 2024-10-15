@@ -36,7 +36,7 @@ const Singup = () => {
     e.preventDefault();
     createUser({ name, email, password, avatar }, {
       onSuccess: (res) => {
-        toast.success(res.response.data.message)
+        toast.success(`Please this email: ${email} to verify your register`)
         navigate("/login")
       },
       onError: (err) => {

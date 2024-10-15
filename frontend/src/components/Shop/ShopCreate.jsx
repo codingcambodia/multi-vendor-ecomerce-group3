@@ -21,33 +21,40 @@ const ShopCreate = () => {
   const [avatar, setAvatar] = useState();
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
+  const navigate = useNavigate();
 
   const { isPending, mutate: createShop } = useCreateShop();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-createShop({  
-  name,
-  email,
-  password,
-  avatar,
-  zipCode,
-  address,
-  phoneNumber},{
-    onSuccess:(res)=>{
-      toast.success(res.data.message);
-      setName("");
-      setEmail("");
-      setPassword("");
-      setAvatar();
-      setZipCode();
-      setAddress("");
-      setPhoneNumber();
+    createShop({
+      name,
+      email,
+      password,
+      avatar,
+      zipCode,
+      address,
+      phoneNumber
     },
-    onError:(err)=>{
-      toast.error(err.response.data.message);
-    }
-  })
+      {
+        onSuccess: () => {
+
+          toast.success(`Please go to ${email} to verify your signup`);
+          // setName("");
+          // setEmail("");
+          // setPassword("");
+          // setAvatar();
+          // setZipCode();
+          // setAddress("");
+          // setPhoneNumber();
+          navigate("/shop-login")
+        },
+        onError: (err) => {
+          console.log(err, "ddd");
+
+          toast.error(err.response.data.message);
+        }
+      })
 
   };
 
@@ -240,7 +247,7 @@ createShop({
             </div>
 
             <div>
-            <button disabled={isPending}
+              <button disabled={isPending}
                 type="submit"
                 className="group relative w-full h-[40px] flex gap-x-2 justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#16A34A] hover:bg-[#288b4c]"
               > Create Shop

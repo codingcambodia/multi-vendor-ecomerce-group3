@@ -22,3 +22,11 @@ export const deleteProduct = async (id) => {
 export const createReview = async (data) => {
   await axiosInstance.put(`create-new-review`, data);
 };
+
+export const getProductById = async (product_id) => {
+  return (await axiosInstance.get(`get-product-by-id/${product_id}`)).data;
+};
+
+export const updateProduct = async (data) => {
+  await axiosInstance.put(`update-product/${data._id}`, data);
+};

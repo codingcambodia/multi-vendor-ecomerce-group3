@@ -143,7 +143,6 @@ const PaymentInfo = ({
             Pay with Paypal
           </h4>
         </div>
-
         {/* pay with payement */}
         {select === 2 ? (
           <div className="w-full flex border-b">

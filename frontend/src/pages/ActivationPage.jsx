@@ -1,7 +1,7 @@
 
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { useActivateUser } from "../api/users/use-activate-user";
 
@@ -16,8 +16,6 @@ const ActivationPage = () => {
 
   useEffect(() => {
     if (activation_token) {
-    
-
       activateUser(activation_token, {
         onSuccess: () => {
           setError(false)
@@ -43,9 +41,16 @@ const ActivationPage = () => {
       }}
     >
       {error ? (
-        <p>Your token is expired!</p>
+        <div>
+
+          <p>Your token is expired!</p>
+          <Link to="/create-user">
+            Registn agaim</Link>
+        </div>
+
       ) : (
-        <p>Your account has been created suceessfully!</p>
+        <div><p>Your account has been created suceessfully!</p>
+          <Link to="/login-user">Go to Login</Link></div>
       )}
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BsFillBagFill } from "react-icons/bs";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/styles";
 import { getAllOrdersOfUser } from "../redux/actions/order";
@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import { Drawer } from "@material-ui/core";
 import { useCreateReview } from "../api/product/use-create-review";
 import Loader from "./Layout/Loader";
+import BeatLoader from "react-spinners/BeatLoader";
 
 const UserOrderDetails = () => {
   const { orders } = useSelector((state) => state.order);
@@ -29,9 +30,7 @@ const UserOrderDetails = () => {
   }, [dispatch, user._id]);
 
   const data = orders && orders.find((item) => item._id === id);
-
   const reviewHandler = async (e) => {
-
     createReview({
       user,
       rating,
@@ -63,6 +62,8 @@ const UserOrderDetails = () => {
       toast.error(error.response.data.message);
     })
   };
+
+
 
   return (
 
@@ -233,10 +234,29 @@ const UserOrderDetails = () => {
             </div>
           </div>
           <br />
-          {/* <Link to="/">
-            <div className={`${styles.button} text-white`}>Send Message <br /></div>
-          </Link> */}
-          <button onClick={refundHandler}> Refund</button>
+
+
+          {/* {data?.status === "Delivered" & data?.isPaid ? */}
+          {/* // did not get product | get Product
+          // isPaid 
+          // not yet refunded 
+          // with specified date  */}
+
+          <button disabled={isPending}
+            type="button"
+            onClick={refundHandler}
+            className="group relative max-w-[200px] h-[40px] flex gap-x-2 justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#16A34A] hover:bg-[#288b4c]"
+          > Request Refund
+            <BeatLoader color="orange"
+              loading={isPending}
+              cssOverride={{
+                display: "block"
+              }}
+              // size={150}
+              aria-label="Loading Spinner"
+              data-testid="loader" />
+          </button>
+          {/* } */}
         </div>
       }
     </>

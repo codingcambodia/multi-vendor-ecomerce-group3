@@ -1,5 +1,4 @@
 version: "3.1"
-
 services:
   proxy-manager:
     image: 'jc21/nginx-proxy-manager:latest'
@@ -18,7 +17,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
     ports:
-      - "27017:27017"
+      # - "27017:27017"
     volumes:
       - ./../mydata:/data/db
   backend:
@@ -76,4 +75,5 @@ services:
     #   - "4000:4000"
 
     # Volumes define
+
 

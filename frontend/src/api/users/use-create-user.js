@@ -9,8 +9,6 @@ export function useCreateUser() {
 
   return useMutation({
     mutationFn: (data) => createUser(data),
-   
-   
     onSettled: async (_, error) => {
       if (error) {
         console.log(error);

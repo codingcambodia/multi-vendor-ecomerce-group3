@@ -2,7 +2,7 @@ import { Button, Drawer } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
 import React, { useEffect, useState } from "react";
 import { AiOutlineEye } from "react-icons/ai";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import Loader from "../Layout/Loader";
@@ -12,14 +12,18 @@ import DeleteConfirmation from "../myComponents/DeleteConfirmation";
 import { useGetProductsByShop } from "../../api/product/use-getproducts-by-shop";
 import { useDeleteProduct } from "../../api/product/use-delete-product";
 import { toast } from "react-toastify";
+import { BiEdit } from "react-icons/bi";
+import UpdateProduct from "./UpdateProduct";
 
 const AllProducts = () => {
   const { seller } = useSelector((state) => state.seller);
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [openDrawerEdit, setOpenDrawerEdit] = useState(false);
+  const [editId, setEditId] = useState(null)
   const { isPending: getLoading, data } = useGetProductsByShop(seller._id);
   const { isPending: deletePending, mutate: deleteProduct } = useDeleteProduct();
 
- 
+
   const handleDelete = (id) => {
     deleteProduct(id, {
       onSuccess: () => {
@@ -29,28 +33,29 @@ const AllProducts = () => {
         toast.error(err.response.data.message);
       }
     })
-  
+
   };
 
   const columns = [
-    { field: "id", headerName: "Product Id", minWidth: 150, flex: 0.7 },
+    // { field: "id", headerName: "Product Id", minWidth: 150, flex: 0.7 },
     {
       field: "name",
       headerName: "Name",
-      minWidth: 180,
-      flex: 1.4,
+      minWidth: 120,
+      flex: 0.8,
+
     },
     {
       field: "price",
       headerName: "Price",
-      minWidth: 100,
+      minWidth: 50,
       flex: 0.6,
     },
     {
       field: "Stock",
       headerName: "Stock",
       type: "number",
-      minWidth: 80,
+      minWidth: 50,
       flex: 0.5,
     },
 
@@ -58,15 +63,14 @@ const AllProducts = () => {
       field: "sold",
       headerName: "Sold out",
       type: "number",
-      minWidth: 130,
-      flex: 0.6,
+      minWidth: 100,
+      flex: 0.4,
     },
     {
       field: "Preview",
-      flex: 0.8,
-      minWidth: 100,
+      flex: 0.4,
+      minWidth: 50,
       headerName: "",
-      type: "number",
       sortable: false,
       renderCell: (params) => {
         return (
@@ -81,9 +85,31 @@ const AllProducts = () => {
       },
     },
     {
+      field: "Edit",
+      flex: 0.5,
+      minWidth: 50,
+      headerName: "",
+      type: "number",
+      sortable: false,
+      renderCell: (params) => {
+        return (
+          <>
+            <BiEdit onClick={() => {
+              setEditId(params.id);
+              if (params.id) {
+                setOpenDrawerEdit(true)
+              }
+            }}
+              size={20} className="text-green-600 hover:text-green-500 cursor-pointer" />
+
+          </>
+        );
+      },
+    },
+    {
       field: "Delete",
-      flex: 0.8,
-      minWidth: 120,
+      flex: 0.5,
+      minWidth: 50,
       headerName: "",
       type: "number",
       sortable: false,
@@ -144,6 +170,12 @@ const AllProducts = () => {
       <Drawer anchor="right" open={openDrawer} onClose={handleCloseDrawer}>
         <div className="w-[560px] p-8">
           <CreateProduct closeDrawer={handleCloseDrawer} />
+        </div>
+      </Drawer>
+      <Drawer anchor="right" open={openDrawerEdit} onClose={() => setOpenDrawerEdit(false)}>
+        <div className="w-[560px] p-8">
+
+          <UpdateProduct closeDrawer={() => setOpenDrawerEdit(false)} id={editId} />
         </div>
       </Drawer>
     </>

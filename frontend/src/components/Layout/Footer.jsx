@@ -12,49 +12,49 @@ import {
   footerSupportLinks,
 } from "../../static/data";
 import Logo from "../myComponents/Logo";
+import styles from "../../styles/styles";
 
 const Footer = () => {
   return (
     <div className="bg-[#000] text-white">
       <div className="md:flex md:justify-center md:items-center sm:px-12 px-4 bg-[#FF7E00] py-7 h-80">
         <h1 className="lg:text-4xl text-3xl md:mb-0 mb-6 lg:leading-normal font-semibold md:w-2/5">
-          <span className="text-[#56d879]">Subscribe</span> us for get news{" "}
+          <span className="text-green-600">Subscribe</span> us for get news{" "}
           <br />
           events and offers
         </h1>
-        <div>
+        <div className="flex items-center gap-x-2">
           <input
             type="text"
             required
             placeholder="Enter your email..."
-            className="text-gray-800
-                sm:w-72 w-full sm:mr-5 mr-1 lg:mb-0 mb-4 py-3 rounded px-2 focus:outline-none"
+            className="text-gray-800 sm:w-72 w-full sm:mr-5 mr-1 lg:mb-0 py-3 rounded px-2 focus:outline-none block"
           />
-          <button className="bg-[#56d879] hover:bg-teal-500 duration-300 px-5 py-2.5 rounded-md text-whie md:w-auto w-full">
+          <button className={`${styles.button} min-w-[160px] text-whie md:w-auto`}>
             Submit
           </button>
         </div>
       </div>
       <div className="grid grid-cols-1 sm:gird-cols-3 lg:grid-cols-4 gap-6 sm:px-8 px-5 py-16 sm:text-center">
         <ul className="px-5 text-center sm:text-start flex sm:block flex-col items-center">
-         <Logo to="/"/>
+          <Logo to="/" />
           <br />
           <p>The home and elements needeed to create beatiful products.</p>
           <div className="flex items-center mt-[15px]">
-            <AiFillFacebook  size={25} className="cursor-pointer text-amber-500" />
+            <AiFillFacebook size={25} className="cursor-pointer text-amber-500" />
             <AiOutlineTwitter
-            className="text-amber-500"
+              className="text-amber-500"
               size={25}
-              style={{ marginLeft: "15px", cursor: "pointer"}}
+              style={{ marginLeft: "15px", cursor: "pointer" }}
             />
             <AiFillInstagram
-             className="text-amber-500"
+              className="text-amber-500"
               size={25}
               style={{ marginLeft: "15px", cursor: "pointer" }}
             />
             <AiFillYoutube
               size={25}
-               className="text-amber-500"
+              className="text-amber-500"
               style={{ marginLeft: "15px", cursor: "pointer" }}
             />
           </div>
@@ -62,7 +62,7 @@ const Footer = () => {
 
         <ul className="text-center sm:text-start">
           <h1 className="mb-1 font-semibold">Company</h1>
-          {footerProductLinks.map((link,index) => (
+          {footerProductLinks.map((link, index) => (
             <li key={index}>
               <Link
                 className="text-gray-400 hover:text-teal-400 duration-300
@@ -77,7 +77,7 @@ const Footer = () => {
 
         <ul className="text-center sm:text-start">
           <h1 className="mb-1 font-semibold">Shop</h1>
-          {footercompanyLinks.map((link,index) => (
+          {footercompanyLinks.map((link, index) => (
             <li key={index}>
               <Link
                 className="text-gray-400 hover:text-teal-400 duration-300
@@ -92,7 +92,7 @@ const Footer = () => {
 
         <ul className="text-center sm:text-start">
           <h1 className="mb-1 font-semibold">Support</h1>
-          {footerSupportLinks.map((link,index) => (
+          {footerSupportLinks.map((link, index) => (
             <li key={index}>
               <Link
                 className="text-gray-400 hover:text-teal-400 duration-300

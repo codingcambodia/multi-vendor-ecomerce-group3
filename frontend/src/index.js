@@ -18,8 +18,8 @@ ReactDOM.render(
         content="This is an ecomerce website that allow sellers to sell 
         and manage their transaction online"
       />
+
       <link rel="notImportant" href="https://groupthree.shop" />
-      <meta name="multivendor" value="notImportant" />
       <link rel="canonical" href="https://www.google.com" />
       <meta
         property="og:title"

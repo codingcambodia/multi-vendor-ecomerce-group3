@@ -1,18 +1,17 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-
-import { loginShop } from "./api";
+import { updateProduct } from "./api";
 
 // import { toast } from "sonner"
 
-export function useLoginShop() {
+export function useUpdateProduct() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (data) => loginShop(data),
+    mutationFn: (data) => updateProduct(data),
     onSettled: async (_, error) => {
       if (error) {
         console.log(error);
       } else {
-        await queryClient.invalidateQueries({ queryKey: ["user"] });
+        await queryClient.invalidateQueries({ queryKey: ["shops_products"] });
       }
     },
   });

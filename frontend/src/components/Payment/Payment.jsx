@@ -13,6 +13,8 @@ import { server } from "../../server";
 import { toast } from "react-toastify";
 import CartData from "./CartData";
 import PaymentInfo from "./PaymentInfo";
+import { useCreateOrder } from "../../api/order/user-create-order";
+import Loader from "../Layout/Loader";
 
 const Payment = () => {
   const [orderData, setOrderData] = useState([]);
@@ -21,6 +23,7 @@ const Payment = () => {
   const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
+  const { isPending, mutate: placeOrder } = useCreateOrder();
 
   useEffect(() => {
     const orderData = JSON.parse(localStorage.getItem("latestOrder"));
@@ -131,16 +134,21 @@ const Payment = () => {
             type: "Credit Card",
           };
 
-          await axios
-            .post(`${server}/order/create-order`, order, config)
-            .then((res) => {
+
+          placeOrder(
+            order, {
+            onSuccess: () => {
               setOpen(false);
               navigate("/order/success");
               toast.success("Order successful!");
               localStorage.setItem("cartItems", JSON.stringify([]));
               localStorage.setItem("latestOrder", JSON.stringify([]));
               window.location.reload();
-            });
+            }, onError: (err) => {
+              toast.error(err.response.data.message)
+            }
+          }
+          )
         }
       }
     } catch (error) {
@@ -151,47 +159,52 @@ const Payment = () => {
   const cashOnDeliveryHandler = async (e) => {
     e.preventDefault();
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
     order.paymentInfo = {
       type: "Cash On Delivery",
     };
 
-    await axios
-      .post(`${server}/order/create-order`, order, config)
-      .then((res) => {
+
+    placeOrder(
+      order, {
+      onSuccess: () => {
         setOpen(false);
         navigate("/order/success");
         toast.success("Order successful!");
         localStorage.setItem("cartItems", JSON.stringify([]));
         localStorage.setItem("latestOrder", JSON.stringify([]));
-        window.location.reload();
-      });
+        // window.location.reload();
+      }, onError: (err) => {
+        toast.error(err.response.data.message)
+      }
+    })
   };
 
+  const isLoading = isPending;
+
   return (
-    <div className="w-full flex flex-col items-center py-8">
-      <div className="w-[90%] 1000px:w-[70%] block 800px:flex">
-        <div className="w-full 800px:w-[65%]">
-          <PaymentInfo
-            user={user}
-            open={open}
-            setOpen={setOpen}
-            onApprove={onApprove}
-            createOrder={createOrder}
-            paymentHandler={paymentHandler}
-            cashOnDeliveryHandler={cashOnDeliveryHandler}
-          />
+    <>
+      {isLoading ? <Loader /> :
+
+        <div className="w-full flex flex-col items-center py-8">
+          <div className="w-[90%] 1000px:w-[70%] block 800px:flex">
+            <div className="w-full 800px:w-[65%]">
+              <PaymentInfo
+                user={user}
+                open={open}
+                setOpen={setOpen}
+                onApprove={onApprove}
+                createOrder={createOrder}
+                paymentHandler={paymentHandler}
+                cashOnDeliveryHandler={cashOnDeliveryHandler}
+              />
+            </div>
+            <div className="w-full 800px:w-[35%] 800px:mt-0 mt-8">
+              <CartData orderData={orderData} />
+            </div>
+          </div>
         </div>
-        <div className="w-full 800px:w-[35%] 800px:mt-0 mt-8">
-          <CartData orderData={orderData} />
-        </div>
-      </div>
-    </div>
+      }
+    </>
   );
 };
 
