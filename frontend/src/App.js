@@ -60,18 +60,15 @@ import axios from "axios";
 import { server } from "./server";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-
+import AllShopWithdraw from "./components/Shop/AllShopWithdraw.jsx";
 
 const App = () => {
   const [stripeApikey, setStripeApiKey] = useState("");
-  
 
   async function getStripeApikey() {
     const { data } = await axios.get(`${server}/payment/stripeapikey`);
     setStripeApiKey(data.stripeApikey);
   }
-
-
 
   useEffect(() => {
     Store.dispatch(loadUser());
@@ -253,6 +250,7 @@ const App = () => {
           element={
             <SellerProtectedRoute>
               <ShopWithDrawMoneyPage />
+              
             </SellerProtectedRoute>
           }
         />

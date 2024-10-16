@@ -316,6 +316,9 @@ router.put(
   catchAsyncErrors(async (req, res, next) => {
     try {
       const { withdrawMethod } = req.body;
+
+      console.log(withdrawMethod);
+
       const seller = await Shop.findByIdAndUpdate(req.seller._id, {
         withdrawMethod,
       });
@@ -343,7 +346,6 @@ router.delete(
       seller.withdrawMethod = null;
 
       await seller.save();
-      D;
 
       res.status(201).json({
         success: true,

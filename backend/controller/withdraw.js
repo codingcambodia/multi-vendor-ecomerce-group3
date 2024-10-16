@@ -5,6 +5,7 @@ const express = require("express");
 const { isSeller, isAuthenticated, isAdmin } = require("../middleware/auth");
 const Withdraw = require("../model/withdraw");
 const sendMail = require("../utils/sendMail");
+var ObjectId = require("mongoose").Types.ObjectId;
 const router = express.Router();
 
 // create withdraw request --- only for seller
@@ -60,6 +61,28 @@ router.get(
   catchAsyncErrors(async (req, res, next) => {
     try {
       const withdraws = await Withdraw.find().sort({ createdAt: -1 });
+
+      res.status(201).json({
+        success: true,
+        withdraws,
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  })
+);
+
+// get all withdraws --- admnin
+
+router.get(
+  "/get-all-withdraw-request-shop",
+  isSeller,
+  catchAsyncErrors(async (req, res, next) => {
+    try {
+      const withdraws = await Withdraw.find({
+        "seller._id": req.seller._id,
+      }).sort({ createdAt: -1 });
+    
 
       res.status(201).json({
         success: true,

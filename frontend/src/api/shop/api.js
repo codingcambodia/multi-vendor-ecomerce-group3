@@ -13,3 +13,10 @@ export const createShop = async (data) => {
 export const loginShop = async (data) => {
   await axiosInstance.post("login-shop", data);
 };
+
+export const deleteWithdrawMethod = async () => {
+  await axiosInstance.delete(`delete-withdraw-method`);
+};
+export const updatePaymentMethod = async (data) => {
+  await axiosInstance.put(`update-payment-methods`, data);
+};

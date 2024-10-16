@@ -2,6 +2,7 @@ import React from 'react'
 import DashboardHeader from '../../components/Shop/Layout/DashboardHeader'
 import WithdrawMoney from "../../components/Shop/WithdrawMoney";
 import DashboardSideBar from '../../components/Shop/Layout/DashboardSideBar';
+import AllShopWithdraw from '../../components/Shop/AllShopWithdraw';
 
 const ShopWithDrawMoneyPage = () => {
   return (
@@ -11,7 +12,8 @@ const ShopWithDrawMoneyPage = () => {
       <div className="w-[80px] 800px:w-[330px]">
         <DashboardSideBar active={5} />
       </div>
-       <WithdrawMoney />
+       {/* <WithdrawMoney /> */}
+       <AllShopWithdraw />
     </div>
   </div>
   )

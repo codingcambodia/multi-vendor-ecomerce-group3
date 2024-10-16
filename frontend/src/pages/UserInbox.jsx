@@ -401,7 +401,7 @@ const SellerInbox = ({
 
       {/* send message input */}
       <form
-        aria-required={true}
+
         className="p-3 relative w-full flex justify-between items-center"
         onSubmit={sendMessageHandler}
       >

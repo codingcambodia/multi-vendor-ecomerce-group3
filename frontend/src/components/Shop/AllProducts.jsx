@@ -174,7 +174,6 @@ const AllProducts = () => {
       </Drawer>
       <Drawer anchor="right" open={openDrawerEdit} onClose={() => setOpenDrawerEdit(false)}>
         <div className="w-[560px] p-8">
-
           <UpdateProduct closeDrawer={() => setOpenDrawerEdit(false)} id={editId} />
         </div>
       </Drawer>
