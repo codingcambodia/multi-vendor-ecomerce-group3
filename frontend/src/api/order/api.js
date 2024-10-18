@@ -24,10 +24,18 @@ export const getAllOrderByCustomers = async (customer_id) => {
 
   return (await axiosInstance.get(`get-all-orders/${customer_id}`)).data;
 };
+
+export const getOrderById = async (order_id) => {
+
+  return (await axiosInstance.get(`get-order-by-id/${order_id}`)).data;
+};
 export const createOrder = async (data) => {
   await axiosInstance.post(`create-order`, data);
 };
 
 export const requestRefund = async (data, id) => {
   await axiosInstance.put(`order-refund/${id}`, data);
+};
+export const updateOrderStatus = async (data, id) => {
+  await axiosInstance.put(`update-order-status/${id}`, data);
 };

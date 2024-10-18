@@ -68,6 +68,26 @@ router.get(
   })
 );
 
+// get all order by id
+router.get(
+  "/get-order-by-id/:id",
+  isSeller,
+  catchAsyncErrors(async (req, res, next) => {
+    try {
+      const order = await Order.findById(req.params.id).sort({
+        createdAt: -1,
+      });
+
+      res.status(200).json({
+        success: true,
+        order,
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  })
+);
+
 // get all orders of seller
 router.get(
   "/get-seller-all-orders/:shopId",
@@ -107,6 +127,7 @@ router.put(
       }
 
       order.status = req.body.status;
+
       if (req.body.status === "Delivered") {
         order.deliveredAt = Date.now();
         order.paymentInfo.status = "Succeeded";

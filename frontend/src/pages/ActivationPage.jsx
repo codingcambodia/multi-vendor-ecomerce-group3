@@ -50,7 +50,7 @@ const ActivationPage = () => {
 
       ) : (
         <div><p>Your account has been created suceessfully!</p>
-          <Link to="/login-user">Go to Login</Link></div>
+          <Link to="/login">Go to Login</Link></div>
       )}
     </div>
   );

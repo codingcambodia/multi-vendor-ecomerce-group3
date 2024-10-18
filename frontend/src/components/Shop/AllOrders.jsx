@@ -17,6 +17,8 @@ const AllOrders = () => {
     dispatch(getAllOrdersOfShop(seller._id));
   }, [dispatch]);
 
+
+
   const columns = [
     {
       field: "orderAt",
@@ -79,7 +81,7 @@ const AllOrders = () => {
   const row = [];
 
   orders &&
-    orders.forEach((item) => {
+    orders?.forEach((item) => {
 
       row.push({
         orderAt: format(item.createdAt, "yyyy-MM-dd HH:mm:ss"),

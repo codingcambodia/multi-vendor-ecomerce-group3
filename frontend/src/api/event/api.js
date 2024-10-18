@@ -11,6 +11,9 @@ const axiosInstance = axios.create({
 export const getEventsByShops = async (shop_id) => {
   return (await axiosInstance.get(`get-all-events/${shop_id}`)).data;
 };
+export const getEventById = async (event_id) => {
+  return (await axiosInstance.get(`get-event-by-id/${event_id}`)).data;
+};
 export const createEvent = async (data) => {
   await axiosInstance.post("create-event", data);
 };

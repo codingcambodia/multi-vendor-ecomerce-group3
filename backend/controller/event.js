@@ -85,6 +85,24 @@ router.get(
   })
 );
 
+// get event by id
+router.get(
+  "/get-event-by-id/:id",
+  catchAsyncErrors(async (req, res, next) => {
+    try {
+      const events = await Event.findById(req.params.id);
+      console.log(events);
+
+      res.status(201).json({
+        success: true,
+        events,
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error, 400));
+    }
+  })
+);
+
 // delete event of a shop
 router.delete(
   "/delete-shop-event/:id",
