@@ -32,7 +32,22 @@ const AllSellers = () => {
   };
 
   const columns = [
-    { field: "id", headerName: "Seller ID", minWidth: 150, flex: 0.7 },
+    {
+      field: "image",
+      headerName: "Avatar",
+      type: "text",
+      minWidth: 100,
+      align: "center",
+      flex: 0.7,
+      sortable: false,
+      renderCell: (params) => {
+        return (
+          <div className="py-4">
+            <img src={params?.row?.image} alt="" className="w-12 h-12 rounded-full block" />
+          </div>
+        );
+      },
+    },
 
     {
       field: "name",
@@ -44,8 +59,8 @@ const AllSellers = () => {
       field: "email",
       headerName: "Email",
       type: "text",
-      minWidth: 130,
-      flex: 0.7,
+      minWidth: 150,
+      flex: 1,
     },
     {
       field: "address",
@@ -64,8 +79,8 @@ const AllSellers = () => {
     },
     {
       field: "  ",
-      flex: 1,
-      minWidth: 150,
+      flex: 0.5,
+      minWidth: 100,
       headerName: "Preview Shop",
       type: "number",
       sortable: false,
@@ -83,8 +98,8 @@ const AllSellers = () => {
     },
     {
       field: " ",
-      flex: 1,
-      minWidth: 150,
+      flex: 0.5,
+      minWidth: 100,
       headerName: "Delete Seller",
       type: "number",
       sortable: false,
@@ -109,6 +124,7 @@ const AllSellers = () => {
         email: item?.email,
         joinedAt: item.createdAt.slice(0, 10),
         address: item.address,
+        image: item?.avatar?.url
       });
     });
 

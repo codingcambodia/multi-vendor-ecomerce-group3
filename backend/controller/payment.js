@@ -9,11 +9,12 @@ router.post(
   catchAsyncErrors(async (req, res, next) => {
     const myPayment = await stripe.paymentIntents.create({
       amount: req.body.amount,
-      currency: "inr",
+      currency: "usd",
       metadata: {
         company: "GROUP3 COMPANY",
       },
     });
+
     res.status(200).json({
       success: true,
       client_secret: myPayment.client_secret,
@@ -27,6 +28,5 @@ router.get(
     res.status(200).json({ stripeApikey: process.env.STRIPE_API_KEY });
   })
 );
-
 
 module.exports = router;

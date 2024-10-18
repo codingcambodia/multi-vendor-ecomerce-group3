@@ -38,9 +38,9 @@ const DashboardHeader = () => {
             />
           </Link>
           <Link to={`/shop/${seller._id}`}>
-            <CiShop size={25} className="text-green-500 font-semibold" />
+            <CiShop size={35} className="text-orange-600 font-bold border rounded-full p-1 bg-purple-200 shadow-sm" />
           </Link>
-          <BiBell size={25} className="text-orange-500" />
+          {/* <BiBell size={25} className="text-orange-500" /> */}
           <VscSignOut onClick={logoutHandler} size={25} className="text-red-500 hover:cursor-pointer" />
         </div>
       </div>

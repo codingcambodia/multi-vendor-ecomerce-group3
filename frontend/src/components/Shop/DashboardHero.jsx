@@ -8,7 +8,7 @@ import { getAllOrdersOfShop } from "../../redux/actions/order";
 import { getAllProductsShop } from "../../redux/actions/product";
 import { Button } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
-import { CiMoneyBill } from "react-icons/ci";
+
 import { BiBullseye, BiDollarCircle, BiStoreAlt } from "react-icons/bi";
 
 const DashboardHero = () => {
@@ -26,6 +26,7 @@ const DashboardHero = () => {
 
   const columns = [
     { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
+    { field: "date", headerName: "Order Date", minWidth: 100, flex: 0.7 },
 
     {
       field: "status",
@@ -79,10 +80,11 @@ const DashboardHero = () => {
 
   orders && orders.forEach((item) => {
     row.push({
-      id: item._id,
+      id: item?._id,
       itemsQty: item.cart.reduce((acc, item) => acc + item.qty, 0),
       total: "US$ " + item.totalPrice,
       status: item.status,
+      date: item?.createdAt?.slice(2, 10),
     });
   });
   return (
@@ -105,7 +107,7 @@ const DashboardHero = () => {
           </div>
           <h5 className="pt-2 pl-[36px] text-[22px] font-[600]">${availableBalance}</h5>
           <Link to="/dashboard-withdraw-money">
-          
+
             <h5 className="pt-4 pl-[36px] text-orange-500 hover:underline">Withdraw Money</h5>
           </Link>
         </div>
@@ -130,9 +132,9 @@ const DashboardHero = () => {
         <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-white shadow rounded px-2 py-5">
           <div className="flex items-center">
             <BiStoreAlt
-            size={40}
-            className="mr-2"
-            fill="#FF7E00" 
+              size={40}
+              className="mr-2"
+              fill="#FF7E00"
             />
             <h3
               className={` !text-[20px] !font-[600] leading-5`}
@@ -141,9 +143,9 @@ const DashboardHero = () => {
             </h3>
           </div>
           <h5 className="pt-2 pl-[36px] text-[22px] font-[500]">{products && products.length}</h5>
-          
+
           <Link to="/dashboard-products">
-       
+
             <h5 className="pt-4 pl-[36px] text-orange-500 hover:underline">View Products</h5>
           </Link>
         </div>

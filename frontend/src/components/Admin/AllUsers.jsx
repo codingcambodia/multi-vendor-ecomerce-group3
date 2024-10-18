@@ -32,7 +32,20 @@ const AllUsers = () => {
   };
 
   const columns = [
-    { field: "id", headerName: "User ID", minWidth: 150, flex: 0.7 },
+    {
+      field: "image",
+      headerName: "Avatar",
+      type: "text",
+      minWidth: 100,
+      align: "center",
+      flex: 0.7,
+      sortable: false,
+      renderCell: (params) => {
+        return (
+          <img src={params?.row?.image} alt="" className="w-10 h-10 rounded-full" />
+        );
+      },
+    },
 
     {
       field: "name",
@@ -59,14 +72,14 @@ const AllUsers = () => {
       field: "joinedAt",
       headerName: "joinedAt",
       type: "text",
-      minWidth: 130,
+      minWidth: 100,
       flex: 0.8,
     },
 
     {
       field: " ",
-      flex: 1,
-      minWidth: 150,
+      flex: 0.5,
+      minWidth: 60,
       headerName: "Delete User",
       type: "number",
       sortable: false,
@@ -87,6 +100,7 @@ const AllUsers = () => {
     users.forEach((item) => {
       row.push({
         id: item._id,
+        image: item?.avatar?.url,
         name: item.name,
         email: item.email,
         role: item.role,
@@ -113,7 +127,7 @@ const AllUsers = () => {
               <div className="w-full flex justify-end cursor-pointer">
                 <RxCross1 size={25} onClick={() => setOpen(false)} />
               </div>
-              <h3 className="text-[25px] text-center py-5 font-Poppins text-[#000000cb]">
+              <h3 className="text-[25px] text-center py-5  text-[#000000cb]">
                 Are you sure you wanna delete this user?
               </h3>
               <div className="w-full flex items-center justify-center">

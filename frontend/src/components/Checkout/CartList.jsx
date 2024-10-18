@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { RxCross1 } from "react-icons/rx";
 import { IoBagHandleOutline } from "react-icons/io5";
 import styles from "../../styles/styles";
-import { Link } from "react-router-dom";
+
 import { useDispatch, useSelector } from "react-redux";
 import { addTocart, removeFromCart } from "../../redux/actions/cart";
 import { toast } from "react-toastify";
 
-const Cart = ({ setOpenCart }) => {
+const CartList = () => {
   const { cart } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
@@ -15,10 +15,6 @@ const Cart = ({ setOpenCart }) => {
     dispatch(removeFromCart(data));
   };
 
-  const totalPrice = cart.reduce(
-    (acc, item) => acc + item.qty * item.discountPrice,
-    0
-  );
 
   const quantityChangeHandler = (data) => {
     dispatch(addTocart(data));
@@ -39,15 +35,15 @@ const Cart = ({ setOpenCart }) => {
 
   return (
 
-    <div>
+    <div className="w-full bg-white shadow-sm rounded-md p-4">
       {cart && cart.length === 0 ? (
-        <div className="w-full h-screen flex items-center justify-center">
+        <div className="w-full h-screen flex items-center justify-center ">
           <h5>Cart Items is empty!</h5>
         </div>
       ) : (
         <>
-          <div>
-            {/* Item length */}
+          <div className="w-full ">
+
             <div className={`${styles.noramlFlex} p-4`}>
               <IoBagHandleOutline size={25} />
               <h5 className="pl-2 text-[20px] font-[500]">
@@ -55,13 +51,11 @@ const Cart = ({ setOpenCart }) => {
               </h5>
             </div>
 
-            {/* cart Single Items */}
-            <br />
             <div className="w-full">
 
               {array?.map((item) => <>
 
-                <div className="py-4 mt-2">
+                <div className="py-4 mt-2" key={item.shopId}>
                   <p className="bg-orange-100 p-2 font-[500] ">Shop: {item?.shopId?.slice(-6)} Store</p>
                 </div>
 
@@ -81,18 +75,6 @@ const Cart = ({ setOpenCart }) => {
             </div>
           </div>
 
-          <div className="px-5 mb-3 mt-4">
-            {/* checkout buttons */}
-            <Link to="/checkout">
-              <div
-                className={`${styles.button} flex items-center justify-center !w-[100%]`}
-              >
-                <h1 className="text-[#fff] text-[18px] font-[600]">
-                  Checkout Now (USD${totalPrice})
-                </h1>
-              </div>
-            </Link>
-          </div>
         </>
       )}
     </div>
@@ -171,4 +153,4 @@ const CartSingle = ({ data, quantityChangeHandler, removeFromCartHandler }) => {
   );
 };
 
-export default Cart;
+export default CartList;

@@ -29,13 +29,18 @@ router.post(
       const orders = [];
 
       for (const [shopId, items] of shopItemsMap) {
+        let total = items.reduce((accumulator, item) => {
+          return (accumulator += item.discountPrice * item.qty);
+        }, 0);
+
         const order = await Order.create({
           cart: items,
           shippingAddress,
           user,
-          totalPrice,
+          totalPrice: total + total * 0.1,
           paymentInfo,
         });
+
         orders.push(order);
       }
 

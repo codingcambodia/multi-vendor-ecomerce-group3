@@ -7,6 +7,8 @@ import { useEffect } from "react";
 import axios from "axios";
 import { server } from "../../server";
 import { toast } from "react-toastify";
+import CartList from "./CartList";
+
 
 const Checkout = () => {
   const { user } = useSelector((state) => state.user);
@@ -103,9 +105,10 @@ const Checkout = () => {
 
 
   return (
-    <div className="w-full flex flex-col items-center py-8">
-      <div className="w-[90%] 1000px:w-[70%] block 800px:flex">
-        <div className="w-full 800px:w-[65%]">
+    <div className="w-full 1100px:w-[90%] mx-auto flex flex-col items-center py-8">
+
+      <div className="grid grid-cols-5 gap-4">
+        <div className="col-span-2">
           <ShippingInfo
             user={user}
             country={country}
@@ -122,7 +125,12 @@ const Checkout = () => {
             setZipCode={setZipCode}
           />
         </div>
-        <div className="w-full 800px:w-[35%] 800px:mt-0 mt-8">
+        <div className="col-span-2">
+          <CartList />
+
+        </div>
+
+        <div className="col-span-1">
           <CartData
             handleSubmit={handleSubmit}
             totalPrice={totalPrice}
@@ -132,6 +140,17 @@ const Checkout = () => {
             setCouponCode={setCouponCode}
             discountPercentenge={discountPercentenge}
           />
+        </div>
+      </div>
+
+      <div className="w-[90%] 1000px:w-[90%] block 800px:flex">
+
+
+
+
+
+        <div className="w-full 800px:w-[65%]">
+
         </div>
       </div>
       <div
@@ -160,7 +179,7 @@ const ShippingInfo = ({
   setZipCode,
 }) => {
   return (
-    <div className="w-full 800px:w-[95%] bg-white rounded-md p-5 pb-8">
+    <div className="w-full  bg-white rounded-md p-5 pb-8">
       <h5 className="text-[18px] font-[500]">Shipping Address</h5>
       <br />
       <form>
@@ -272,7 +291,7 @@ const ShippingInfo = ({
         <div></div>
       </form>
       <button
-        className={`bg-[#16A34A] hover:bg-green-600 p-3 text-white rounded-md`}
+        className={`${styles.button} !w-full`}
         onClick={() => setUserInfo(!userInfo)}
       >
         Choose From saved address

@@ -39,10 +39,28 @@ const AllProducts = () => {
   const columns = [
     // { field: "id", headerName: "Product Id", minWidth: 150, flex: 0.7 },
     {
+      field: "image",
+      align: "center",
+      flex: 0.6,
+      minWidth: 70,
+      headerName: "",
+      sortable: false,
+      renderCell: (params) => {
+
+
+        return (
+          <>
+            <img src={params?.row?.image} className="w-16 h-16 rounded-sm py-2" alt="" />
+
+          </>
+        );
+      },
+    },
+    {
       field: "name",
       headerName: "Name",
-      minWidth: 120,
-      flex: 0.8,
+      minWidth: 100,
+      flex: 0.6,
 
     },
     {
@@ -133,6 +151,7 @@ const AllProducts = () => {
         price: "US$ " + item.discountPrice,
         Stock: item.stock,
         sold: item?.sold_out,
+        image: item?.images[0].url
       });
     });
 

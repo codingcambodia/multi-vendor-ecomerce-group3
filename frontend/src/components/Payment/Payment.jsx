@@ -30,6 +30,7 @@ const Payment = () => {
     setOrderData(orderData);
   }, []);
 
+
   const createOrder = (data, actions) => {
     return actions.order
       .create({
@@ -37,7 +38,7 @@ const Payment = () => {
           {
             description: "Sunflower",
             amount: {
-              currency_code: "USD",
+              currency_code: "usd",
               value: orderData?.totalPrice,
             },
           },
@@ -58,6 +59,9 @@ const Payment = () => {
     user: user && user,
     totalPrice: orderData?.totalPrice,
   };
+
+
+
 
   const onApprove = async (data, actions) => {
     return actions.order.capture().then(function (details) {
@@ -108,6 +112,7 @@ const Payment = () => {
           "Content-Type": "application/json",
         },
       };
+
 
       const { data } = await axios.post(
         `${server}/payment/process`,
@@ -172,7 +177,7 @@ const Payment = () => {
         toast.success("Order successful!");
         localStorage.setItem("cartItems", JSON.stringify([]));
         localStorage.setItem("latestOrder", JSON.stringify([]));
-        // window.location.reload();
+        window.location.reload();
       }, onError: (err) => {
         toast.error(err.response.data.message)
       }
