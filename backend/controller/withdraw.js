@@ -102,7 +102,6 @@ router.put(
   catchAsyncErrors(async (req, res, next) => {
     try {
       const { sellerId } = req.body;
-
       const withdraw = await Withdraw.findByIdAndUpdate(
         req.params.id,
         {
@@ -120,9 +119,7 @@ router.put(
         updatedAt: withdraw.updatedAt,
         status: withdraw.status,
       };
-
       seller.transections = [...seller.transections, transection];
-
       await seller.save();
 
       try {
