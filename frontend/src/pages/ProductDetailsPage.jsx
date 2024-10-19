@@ -24,9 +24,6 @@ const ProductDetailsPage = () => {
   } else {
     data = productData?.product
   }
-  console.log(event);
-
-  console.log(data);
 
   const isLoading = isPending || eventPending
 

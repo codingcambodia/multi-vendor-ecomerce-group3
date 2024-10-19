@@ -1,10 +1,10 @@
 import { Button, Drawer } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
 import React, { useEffect, useState } from "react";
-import { AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
+import { AiOutlineEye } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { deleteEvent, getAllEventsShop } from "../../redux/actions/event";
+import { getAllEventsShop } from "../../redux/actions/event";
 
 import Loader from "../Layout/Loader";
 import CreateEvent from "./CreateEvent";
@@ -78,7 +78,7 @@ const AllEvents = () => {
         const product_name = d.replace(/\s+/g, "-");
         return (
           <>
-            <Link to={`/product/${product_name}`}>
+            <Link to={`/product/${params.row.id}?isEvent=true`}>
               <Button>
                 <AiOutlineEye size={20} />
               </Button>
@@ -103,9 +103,8 @@ const AllEvents = () => {
   ];
 
   const row = [];
-
   data?.events &&
-    data?.events.forEach((item) => {
+    data?.events?.forEach((item) => {
       row.push({
         id: item._id,
         name: item.name,
@@ -114,6 +113,7 @@ const AllEvents = () => {
         sold: item.sold_out,
       });
     });
+
   const handleOpenDrawer = () => {
     setOpenDrawer(true)
   }
@@ -122,7 +122,7 @@ const AllEvents = () => {
   }
 
 
-  const isLoading = getLoading || deletePending;
+  const isLoading = getLoading;
   return (
     <>
       {isLoading ? (

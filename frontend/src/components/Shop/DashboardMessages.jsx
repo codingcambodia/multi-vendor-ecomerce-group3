@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useRef, useState } from "react";
 import { useEffect } from "react";
 import { server, socketUrl } from "../../server";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineArrowRight, AiOutlineSend } from "react-icons/ai";
 import styles from "../../styles/styles";
@@ -214,7 +214,7 @@ const DashboardMessages = () => {
           </h1>
           {/* All messages list */}
           {conversations &&
-            conversations.map((item, index) => (
+            conversations?.map((item, index) => (
               <MessageList
                 data={item}
                 key={index}
@@ -262,7 +262,7 @@ const MessageList = ({
   setActiveStatus,
   isLoading
 }) => {
-  console.log(data);
+
   const [user, setUser] = useState([]);
   const navigate = useNavigate();
   const handleClick = (id) => {
@@ -272,7 +272,7 @@ const MessageList = ({
   const [active, setActive] = useState(0);
 
   useEffect(() => {
-    const userId = data.members.find((user) => user != me);
+    const userId = data?.members?.find((user) => user != me);
 
     const getUser = async () => {
       try {
@@ -314,7 +314,7 @@ const MessageList = ({
         <p className="text-[16px] text-[#000c]">
           {!isLoading && data?.lastMessageId !== user?._id
             ? "You:"
-            : user?.name.split(" ")[0] + ": "}{" "}
+            : user?.name?.split(" ")[0] + ": "}{" "}
           {data?.lastMessage}
         </p>
       </div>
@@ -362,34 +362,34 @@ const SellerInbox = ({
           messages.map((item, index) => {
             return (
               <div
-                className={`flex w-full my-2 ${item.sender === sellerId ? "justify-end" : "justify-start"
+                className={`flex w-full my-2 ${item?.sender === sellerId ? "justify-end" : "justify-start"
                   }`}
                 ref={scrollRef}
               >
-                {item.sender !== sellerId && (
+                {item?.sender !== sellerId && (
                   <img
                     src={`${userData?.avatar?.url}`}
                     className="w-[40px] h-[40px] rounded-full mr-3"
                     alt=""
                   />
                 )}
-                {item.images && (
-                  <img
+                {item?.images && (
+                  <img alt="img"
                     src={`${item.images?.url}`}
                     className="w-[300px] h-[300px] object-cover rounded-[10px] mr-2"
                   />
                 )}
-                {item.text !== "" && (
+                {item?.text !== "" && (
                   <div>
                     <div
-                      className={`w-max p-2 rounded ${item.sender === sellerId ? "bg-[#000]" : "bg-[#38c776]"
+                      className={`w-max p-2 rounded ${item?.sender === sellerId ? "bg-[#000]" : "bg-[#38c776]"
                         } text-[#fff] h-min`}
                     >
-                      <p>{item.text}</p>
+                      <p>{item?.text}</p>
                     </div>
 
                     <p className="text-[12px] text-[#000000d3] pt-1">
-                      {format(item.createdAt)}
+                      {format(item?.createdAt)}
                     </p>
                   </div>
                 )}

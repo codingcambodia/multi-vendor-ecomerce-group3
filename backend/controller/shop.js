@@ -281,6 +281,10 @@ router.get(
   })
 );
 
+// all sellers --- for admin
+
+
+
 // delete seller ---admin
 router.delete(
   "/delete-seller/:id",

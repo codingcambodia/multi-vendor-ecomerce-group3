@@ -228,7 +228,7 @@ const Header = ({ activeHeading }) => {
               </span>
             </div>
           </div>
-       
+
         </div>
 
         {/* header sidebar */}
@@ -333,13 +333,13 @@ const Header = ({ activeHeading }) => {
       </div>
 
       <Drawer anchor="right" open={openCart} onClose={() => setOpenCart(false)}>
-        <div className="w-[450px] md:w-[500px] p-8">
+        <div className="w-[450px] md:w-[650px] p-8">
           <Cart />
         </div>
       </Drawer>
       <Drawer anchor="right" open={openWishlist} onClose={() => setOpenWishlist(false)}>
         <div className="w-[450px] md:w-[500px] p-8">
-          <Wishlist/>
+          <Wishlist />
         </div>
       </Drawer>
     </>

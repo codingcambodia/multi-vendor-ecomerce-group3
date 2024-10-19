@@ -76,8 +76,6 @@ const Cart = ({ setOpenCart }) => {
                 ))}
 
               </>)}
-
-
             </div>
           </div>
 
@@ -142,7 +140,6 @@ const CartSingle = ({ data, quantityChangeHandler, removeFromCartHandler }) => {
             US${totalPrice}
           </h4>
         </div>
-
 
 
         <div>

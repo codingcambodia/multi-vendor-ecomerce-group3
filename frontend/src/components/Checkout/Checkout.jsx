@@ -69,6 +69,7 @@ const Checkout = () => {
     const name = couponCode;
 
     await axios.get(`${server}/coupon/get-coupon-value/${name}`).then((res) => {
+      
       const shopId = res.data.couponCode?.shopId;
       const couponCodeValue = res.data.couponCode?.value;
       if (res.data.couponCode !== null) {
@@ -97,7 +98,6 @@ const Checkout = () => {
   };
 
   const discountPercentenge = couponCodeData ? discountPrice : "";
-
   const totalPrice = couponCodeData
     ? (subTotalPrice + shipping - discountPercentenge).toFixed(2)
     : (subTotalPrice + shipping).toFixed(2);
@@ -142,13 +142,7 @@ const Checkout = () => {
           />
         </div>
       </div>
-
       <div className="w-[90%] 1000px:w-[90%] block 800px:flex">
-
-
-
-
-
         <div className="w-full 800px:w-[65%]">
 
         </div>

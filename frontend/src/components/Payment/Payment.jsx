@@ -30,7 +30,6 @@ const Payment = () => {
     setOrderData(orderData);
   }, []);
 
-
   const createOrder = (data, actions) => {
     return actions.order
       .create({
@@ -60,13 +59,9 @@ const Payment = () => {
     totalPrice: orderData?.totalPrice,
   };
 
-
-
-
   const onApprove = async (data, actions) => {
     return actions.order.capture().then(function (details) {
       const { payer } = details;
-
       let paymentInfo = payer;
 
       if (paymentInfo !== undefined) {
@@ -113,7 +108,6 @@ const Payment = () => {
         },
       };
 
-
       const { data } = await axios.post(
         `${server}/payment/process`,
         paymentData,
@@ -121,7 +115,6 @@ const Payment = () => {
       );
 
       const client_secret = data.client_secret;
-
       if (!stripe || !elements) return;
       const result = await stripe.confirmCardPayment(client_secret, {
         payment_method: {
@@ -129,23 +122,25 @@ const Payment = () => {
         },
       });
 
+      console.log(result, "result");
+
+
       if (result.error) {
         toast.error(result.error.message);
       } else {
         if (result.paymentIntent.status === "succeeded") {
-          order.paymnentInfo = {
+          order.paymentInfo = {
             id: result.paymentIntent.id,
             status: result.paymentIntent.status,
             type: "Credit Card",
           };
 
-
           placeOrder(
             order, {
             onSuccess: () => {
               setOpen(false);
-              navigate("/order/success");
               toast.success("Order successful!");
+              navigate("/order/success");
               localStorage.setItem("cartItems", JSON.stringify([]));
               localStorage.setItem("latestOrder", JSON.stringify([]));
               window.location.reload();
@@ -185,11 +180,9 @@ const Payment = () => {
   };
 
   const isLoading = isPending;
-
   return (
     <>
       {isLoading ? <Loader /> :
-
         <div className="w-full flex flex-col items-center py-8">
           <div className="w-[90%] 1000px:w-[70%] block 800px:flex">
             <div className="w-full 800px:w-[65%]">

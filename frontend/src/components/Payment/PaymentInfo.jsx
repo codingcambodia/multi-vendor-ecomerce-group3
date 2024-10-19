@@ -14,7 +14,7 @@ const PaymentInfo = ({
   cashOnDeliveryHandler,
 }) => {
   const [select, setSelect] = useState(1);
-
+  const [name, setName] = useState(user && user.name);
   return (
     <div className="w-full 800px:w-[95%] bg-[#fff] rounded-md p-5 pb-8">
       {/* select buttons */}
@@ -44,7 +44,8 @@ const PaymentInfo = ({
                     required
                     placeholder={user && user.name}
                     className={`${styles.input} !w-[95%] text-[#444]`}
-                    value={user && user.name}
+                    onChange={(e) => setName(e.target.value)}
+                    value={name}
                   />
                 </div>
                 <div className="w-[50%]">

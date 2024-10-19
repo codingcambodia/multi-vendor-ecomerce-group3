@@ -40,7 +40,6 @@ router.post(
           totalPrice: total + total * 0.1,
           paymentInfo,
         });
-
         orders.push(order);
       }
 
