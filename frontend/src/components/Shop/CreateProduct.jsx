@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 
 import { categoriesData } from "../../static/data";
 import { toast } from "react-toastify";
-import styles from "../../styles/styles";
 import { useCreateProduct } from "../../api/product/user-create-product";
 import BeatLoader from "react-spinners/BeatLoader";
 

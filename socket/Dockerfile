@@ -6,10 +6,8 @@ WORKDIR /app
 
 # Copy the package.json file to my current directory to install the necessary dependence  
 COPY package.json .
-
 # Install the dependence
 RUN npm install
-
 # Copy other files to my current directory
 COPY . .
 
